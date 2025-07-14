@@ -1,0 +1,142 @@
+/*STYLE FOR HOME PAGE*/
+
+.home-container{
+   
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  align-items: center;     /* horizontally center child elements */
+  padding:5px;
+  max-width: 1000px;
+  margin: 0 auto;           /* center the container in the page */
+  gap: 32px;
+  
+  /* height: 70vh;  */
+}
+    
+    
+
+/*STYLE FOR LISTING OF BOOKS */
+.books-parent
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  height:100%;
+  /* background-color: rgba(214, 189, 144, 0.788); */
+  
+}
+.book-child
+{
+  flex: 1 1 5%;
+  max-width: 20%;
+ margin: 0 auto;
+  
+}
+.book-child img
+{
+  display:block;
+  width:100px;
+  height:120px;
+  border: 2px solid transparent;  
+  border-radius: 6px;    
+  padding: 2px;
+  margin:25px;
+}
+
+.book-child img:hover {
+  /* box-shadow: 0 0 3px 4px rgb(62, 138, 168); */
+  background-color: rgb(155, 14, 14);
+}
+
+.link-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center; 
+  text-decoration: none;
+}
+.book-link
+{
+  color: #2185d6;
+	font-size:medium; 
+  display: inline-block;
+  margin-top: 0; 
+ 
+}
+
+/*STYLE FOR GENRE SELECTION*/
+ .genre-div
+{
+  display:flex;
+  flex-direction: row;
+  margin:1rem;
+  
+}
+.genre-div label,span
+{
+  font-size: 25px;
+  padding:10px;
+  margin:10px;
+  /* color:white;  */
+}
+
+.genre-div select
+{
+  font-size: 20px;
+  padding:3px;
+  margin:5px;
+}
+
+
+/* Styling for cellphones*/
+@media (max-width:600px ) {
+  
+  
+  .book-child{
+    flex: 1 1 45%; /* Two items per row with some space */
+    max-width: 45%;
+  }
+  .book-child img {
+  width: 2.5rem;
+  height: 4rem;
+  display: block;
+}
+  
+}
+
+/*Styling for tablets*/
+@media (max-width: 900px) {
+    .books-parent {
+      justify-content: space-around;
+    }
+
+    .book-child {
+      flex: 1 1 22%;
+    max-width: 22%;
+    }
+
+    .genre-div {
+      font-size: 1rem;
+    }
+    .book-child img {
+    width: 2.5rem;
+    height: 4rem;
+    display: block;
+  }
+}
+
+.pagination
+{
+   display: flex;
+  justify-content: center;  
+  width: 100%;              
+  
+}
+
+.pagination a {
+  color: rgb(88, 17, 17);
+  text-decoration: underline;
+  
+  padding: 8px 16px;
+  text-decoration: underline;
+}

@@ -1,0 +1,41 @@
+/*Rental page styles*/
+
+.rentals
+{
+  
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  
+}
+
+.rentalItems{
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+}
+
+.rentals-table {
+  
+  border-collapse: collapse;
+  background-color:rgba(100, 23, 4, 0.336);
+}
+
+.rentals-table  td, .rentalItems th {
+  border: 1px solid #ddd;
+  text-align: left;
+  
+}
+
+.rentals-table tr:nth-child(even){background-color: rgba(100, 23, 4, 0.336);}
+
+.rentals-table tr:hover {background-color: #ddd;}
+
+.rentals-table th {
+ 
+  background-color: rgb(88, 17, 17);
+  color: white;
+}

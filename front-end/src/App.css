@@ -1,0 +1,150 @@
+
+/*STYLE FOR ENTIRE APP*/
+.App{
+  height:100%
+  
+}
+.page-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  
+}
+
+/*STYLE FOR NAV LINKS*/
+.header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    flex-direction: row;
+    /* background-color: rgb(206, 164, 74); */
+    /* background-color:skyblue; */
+    background-color: rgb(88, 17, 17);
+   
+}
+.header .headerlinks{
+  text-decoration: none;
+  color:white;
+  font-size: 18px;
+}
+.nav-links
+{
+    list-style: none;
+    display: flex;
+}
+.nav-links li {
+  margin-left: 20px; 
+  padding: 8px 18px;
+  
+}
+.nav-links li:hover {
+  /* background: #926e2a; */
+  /* background: rgb(62, 138, 168); */
+  background: rgb(95, 94, 93);
+  border-radius: 5px;
+}
+
+.mybooks:hover
+{
+ background: rgb(95, 94, 93);
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.mybooks{
+  
+  margin-right:5rem;
+  text-decoration: none;
+  padding:8px 12px;
+  color:white;
+  font-size: 18px;
+}
+
+/* STYLE ADDED FOR NAV LINKS RESPONSIVENESS */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+/*STYLE FOR FOOTER*/
+
+.footer
+{
+    text-align: center;
+    padding: 3px;
+    color:white; 
+    
+    /* background-color: rgb(206, 164, 74); */
+    /* background-color:skyblue; */
+    background-color: rgb(88, 17, 17);
+}
+
+.footer span
+{
+  font-size:13px;
+}
+
+
+
+
+/*STYLE FOR RESPONSIVENESS*/
+
+@media (max-width:600px ) {
+  .nav-links  {
+    display: none;
+    flex-direction: column;
+    background: #333;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+    .genre-div
+  {
+    display:flex;
+    flex-direction: row;
+    margin:10px;
+    
+  }
+
+  
+
+  .App
+  {
+    /**background-image: url('./assets/AdobeStock_361448104_Preview.jpeg');**/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+  }
+
+  .genre-div label,span
+  {
+    font-size: 15px;
+    padding:10px;
+    margin:10px;
+  }
+
+   .contact
+    {
+        width:20rem;
+        height:46.5rem;
+        background-color:rgba(100, 23, 4, 0.336);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        
+    }
+}
+

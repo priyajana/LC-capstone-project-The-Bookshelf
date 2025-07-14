@@ -1,0 +1,18 @@
+html, body , #root{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+ /* background: url('./assets/AdobeStock_361448104_Preview.jpeg');
+  background-size: cover;       
+  background-repeat: no-repeat; 
+  background-position: center; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
