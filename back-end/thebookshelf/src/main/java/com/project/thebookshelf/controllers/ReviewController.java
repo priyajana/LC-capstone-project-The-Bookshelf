@@ -1,6 +1,14 @@
 package com.project.thebookshelf.controllers;
 
+import com.project.thebookshelf.models.Review;
+import com.project.thebookshelf.models.User;
+import com.project.thebookshelf.repositories.ReviewRepository;
+import com.project.thebookshelf.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,21 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/reviews")
 public class ReviewController {
 
-
-//    // POST a new review
-//    // Endpoint http://localhost:8080/review/add
-//    @PostMapping(value="/add")
-//    public ResponseEntity<?> createNewArtwork(@RequestBody ArtworkDTO artworkData) {
-//        Artist artist = artistRepository.findById(artworkData.getArtistId()).orElse(null);
-//        List<Category> categories = new ArrayList<>();
-//        for (int categoryId : artworkData.getCategoryIds()) {
-//            Category category = categoryRepository.findById(categoryId).orElse(null);
-//            if (category != null) {
-//                categories.add(category);
-//            }
-//        }
-//        Artwork newArtwork = new Artwork(artworkData.getTitle(), artist, categories, artworkData.getDetails());
-//        artworkRepository.save(newArtwork);
-//        return new ResponseEntity<>(newArtwork, HttpStatus.CREATED); // 201
-//    }
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    ReviewRepository reviewRepository;
+    // POST a new review
+    // Endpoint http://localhost:8080/review/add
+    @PostMapping(value="/add")
+    public ResponseEntity<?> createNewReview(@RequestBody Review reviewData) {
+        User user = userRepository.findById(reviewData.getUser().getId()).orElse(null);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+        Review newReview = new Review(reviewData.getBookName(), reviewData.getContent(),reviewData.getUser());
+        reviewRepository.save(newReview);
+        return new ResponseEntity<>(newReview, HttpStatus.CREATED); // 201
+    }
 }

@@ -17,14 +17,23 @@ public class Review {
     @Column(name = "book_name", nullable = false)
     private String bookName;
 
-    @Column(name = "review", nullable = false)
-    private String review;
+    @Column(name = "content", nullable = false)
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference
     private User user;
 
+    public Review() {
+        // Default constructor
+    }
+
+    public Review(String bookName, String content, User user) {
+        this.bookName = bookName;
+        this.content = content;
+        this.user = user;
+    }
     // Getters and setters
 
     public Long getId() {
@@ -43,12 +52,12 @@ public class Review {
         this.bookName = bookName;
     }
 
-    public String getReview() {
-        return review;
+    public String getContent() {
+        return content;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public User getUser() {
