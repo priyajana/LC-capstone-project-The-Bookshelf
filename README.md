@@ -30,8 +30,8 @@
 - configured with AWS RDS (PostgreSQL) for database management.
 
 plaintext
-+-------------------+         HTTPS        +-------------------+         JDBC      +-------------------+
-|                   |  <---------------->  |                   |  <---------------> |                   |
++-------------------+         HTTPS         +-------------------+         JDBC         +-------------------+
+|                   |  <---------------->  |                   |  <--------------->  |                   |
 |  React Frontend   |                      |   Spring Boot     |                    |   PostgreSQL RDS  |
 |  (AWS Amplify)    |                      |   Backend (EC2)   |                    |   (AWS RDS)       |
 |                   |                      |                   |                    |                   |
