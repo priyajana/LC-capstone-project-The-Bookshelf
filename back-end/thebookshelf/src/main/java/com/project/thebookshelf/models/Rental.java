@@ -12,16 +12,23 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "review", nullable = false)
-    private String review;
+
+
+    @Column(name = "bookName", nullable = false)
+    private String bookName;
 
     @ManyToOne
-    @JoinColumn(name= "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference
     private User user;
 
     public Rental() {
         // Default constructor
+    }
+
+    public Rental(String bookName, User user) {
+        this.bookName = bookName;
+        this.user = user;
     }
     // Getters and setters
 
@@ -39,5 +46,13 @@ public class Rental {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 }
