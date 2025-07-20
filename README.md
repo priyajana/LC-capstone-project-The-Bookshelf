@@ -28,6 +28,9 @@
 - Modified the application.properties file to set the server port to 8080 and the database connection details.
 - Changed the EC2 instance firewall settings to allow traffic on port 8080 using Windows Defender Firewall.
 - configured with AWS RDS (PostgreSQL) for database management.
+### Architecture Diagram
+
+```plaintext
 
 plaintext
 +-------------------+         HTTPS         +-------------------+         JDBC         +-------------------+
@@ -37,6 +40,7 @@ plaintext
 |                   |                      |                   |                    |                   |
 +-------------------+                      +-------------------+                    +-------------------+
 
+```
 ### Technologies Used
 ### How to Run the Project Locally
 
