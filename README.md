@@ -32,7 +32,7 @@
 
 ```plaintext
 
-plaintext
+
 +-------------------+         HTTPS        +-------------------+         JDBC       +-------------------+
 |                   |  <---------------->  |                   |  <---------------> |                   |
 |  React Frontend   |                      |   Spring Boot     |                    |   PostgreSQL RDS  |
