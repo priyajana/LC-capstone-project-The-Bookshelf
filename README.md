@@ -15,7 +15,7 @@
 - `src/` - Contains the React application code.
 - TheBookShelf app is built using React via Vite.
 - Deployed on AWS Amplify.
-- Reference: [Url](Deploy react app in aws?(https://dev.to/sachithmayantha/deploying-a-reactjs-app-on-aws-amplify-in-3-minutes-18el)
+- Reference: [Deploy react app in aws?](https://dev.to/sachithmayantha/deploying-a-reactjs-app-on-aws-amplify-in-3-minutes-18el)
 
 #### Backend
 - `src/main/java/com/example/thebookshelf/` - Contains the Spring Boot application code.
