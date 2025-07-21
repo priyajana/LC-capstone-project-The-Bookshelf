@@ -16,6 +16,9 @@ export default function Header(){
                         <li><Link className="headerlinks" key='newbook' to="/NewBookForm">Request a new book</Link></li>                              
                     </ul>
                     <Link className="mybooks" key="rentals" to="/rentals">My Books ({rentalList? rentalList.length:0}) </Link>
+                    <Link className="mybooks" key="register" to="/register">Register</Link>
+                    <Link className="mybooks" key="login" to="/login">Login</Link>
+                    <Link className="mybooks" key="logout" to="/logout">Logout</Link>
                 <div className="menu-toggle" onClick={() =>setMenuOpen(!menuOpen) }>
                         &#9776;
                 </div>

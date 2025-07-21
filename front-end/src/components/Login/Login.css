@@ -1,0 +1,68 @@
+.login-container{
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+ 
+}
+
+.login-ctr {
+  width:20rem;         
+        /* background-color: rgba(214, 189, 144, 0.788); */
+        background-color:rgba(100, 23, 4, 0.336);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+         height: 25rem;  
+}
+.loginbtn {
+   width:5rem;
+  background: black;
+  margin-left:10px;
+  margin-top:1.5rem;
+  border-radius: 5px;
+  height: 35px;
+  color:white;
+}
+.login-container label,.login-container input,.login-container p
+{
+  padding:10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: small;
+  margin-top:10px;
+ 
+}
+ h1 {
+     padding:10px;
+}
+
+.button-div{
+    display: flex;
+    flex-direction: column;
+}
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+ width:5rem;
+  background: black;
+  margin-left:10px;
+  margin-top:5px;
+  border-radius: 5px;
+  height: 35px;
+  background-color: #f44336;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}

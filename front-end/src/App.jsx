@@ -10,8 +10,8 @@ import BookCard from "./components/Bookcard/BookCard";
 import { useState,useEffect } from "react";
 import Rentals from "./components/Rentals/Rentals";
 import NewBookForm from "./components/Newbook/NewBookForm";
-
-
+import Register from "./components/Register/Register";
+import Login from "./components/Login/Login";
 
 const genres = ["Thriller", "Comedy", "Romance","Drama","Science","Dystopian","Psychology","Childrens"];
 async function fetchBooks(subject, startIndex)
@@ -60,8 +60,10 @@ export default function App() {
                               <Route path="/About" element={<About/>} />
                               <Route path="/rentals" element={<Rentals rentalBooks={rentalBooks} setRentals={setRentals} />}/>
                               <Route path="/NewBookForm" element={<NewBookForm genres={genres}/>} />
+                              <Route path="/register" element={<Register/>} />
                               <Route path="/details/:id" element={<BookCard bookDetails={bookList} rentalBooks={rentalBooks} setRentals={setRentals}/>} />
-                              
+                              <Route path="/login" element={<Login/>} />
+
                       </Routes>
                 <Footer/>
             </div>

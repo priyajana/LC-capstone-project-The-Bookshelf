@@ -10,7 +10,8 @@ export default function Rentals({rentalBooks,setRentals}){
   //console.log(JSON.parse(localStorage.getItem("rentals")));
    useEffect(()=>{
 
-        setRentals(JSON.parse(localStorage.getItem("rentals")));
+        //setRentals(JSON.parse(localStorage.getItem("rentals")));
+        
    },[]);
 
 
