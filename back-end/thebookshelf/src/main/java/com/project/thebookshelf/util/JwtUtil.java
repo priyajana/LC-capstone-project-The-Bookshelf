@@ -13,7 +13,6 @@ public class JwtUtil {
     // This class will be used to generate and validate JWT tokens
     // It will use the secret key to sign the tokens and verify their authenticity
 
-
         @Value("${jwt.secret}")
         private String SECRET;
 

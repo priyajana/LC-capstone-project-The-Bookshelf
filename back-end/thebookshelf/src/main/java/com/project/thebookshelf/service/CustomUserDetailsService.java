@@ -15,7 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     // This service will be used to load user details from the database
     // It will implement the UserDetailsService interface
-    // and provide the loadUserByUsername method to fetch user details by email
+
 
     @Autowired
     private UserRepository userRepository;

@@ -22,7 +22,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     // This class will be used to filter JWT requests
     // It will intercept requests and validate the JWT token
     // If the token is valid, it will set the authentication in the security context
-    // If the token is invalid, it will throw an exception or return an error response
+
 
     @Autowired
     private JwtUtil jwtUtil;
