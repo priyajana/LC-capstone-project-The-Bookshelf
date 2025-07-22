@@ -19,15 +19,16 @@ export default function BookCard({bookDetails}){
    // console.log("Genre selected was---->"+original_genre);
 
     const[rentConfirm, setrentConfirm] = useState(false);
-
+     const [message, setMessage] = useState('');
     const targetBook = bookDetails.items.filter((book)=>book.id===id);
    // const [message, setMessage] = useState('');
    //   {message && <p style={{color:"red",fontSize:"12px"}}>{message}</p>}
    //console.log(targetBook? targetBook[0].volumeInfo.title:'');
 
-    const addBook = async () => {
+    const rentBook = async () => {
     
         const bookTitle = targetBook[0].volumeInfo.title;
+       
         const userId = localStorage.getItem('userId');
         const bookData = {
             bookName: bookTitle,
@@ -49,9 +50,9 @@ export default function BookCard({bookDetails}){
                 setrentConfirm(true);
                 
                 
-            } else {
-                const errorData = await response.json();
-                console.error('Error:', errorData);
+            } else if(response.status === 409) {
+                const errorData = await response.text();
+                setMessage(errorData || "Book already rented");
             }
         } catch (error) {
             console.error('Error:', error);
@@ -77,10 +78,10 @@ export default function BookCard({bookDetails}){
                 <h4>Genre: {targetBook? targetBook[0].volumeInfo.categories[0]:''} </h4>
 
                 <div className="rentorback">
-                    <Custombutton onClick={addBook} type="button" buttonname="Rent"/>
+                    <Custombutton onClick={rentBook} type="button" buttonname="Rent"/>
                     
                     <Link className="link-wrapper" key="back" to={`/`}><Custombutton buttonname="Back"/></Link><br/>
-                 
+                    <p>{message && <span style={{color:"red",fontSize:"12px"}}>{message}</span>}</p>
                 </div>
                </div> 
 

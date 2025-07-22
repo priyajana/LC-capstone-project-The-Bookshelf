@@ -1,16 +1,48 @@
-import {  useEffect } from "react";
+import {  useState, useEffect } from "react";
 import Custombutton from "../shared/Custombutton";
 import  './../Rentals/Rentals.css';
 import { Link } from "react-router-dom";
 
-export default function Rentals({rentalBooks,setRentals}){
+export default function Rentals() {
 
     
-   
-  //console.log(JSON.parse(localStorage.getItem("rentals")));
+    const [rentalBooks, setRentalBooks] = useState([]);
+    const userId = localStorage.getItem('userId');
+    
+    async function fetchRentals(userId)
+  {
+                
+          try {
+            const response = await fetch(`http://localhost:8080/rentals/user/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (response.ok) {
+               
+                const data = await response.json();
+                console.log("Fetched rentals:", data);
+
+                return data.map(item => item.bookName); // Assuming bookName is the field you want
+                
+                
+            } else {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
+  }
    useEffect(()=>{
 
-        //setRentals(JSON.parse(localStorage.getItem("rentals")));
+       fetchRentals(userId).then(data=>{ 
+        setRentalBooks(data);   
+    });
         
    },[]);
 
@@ -22,7 +54,7 @@ export default function Rentals({rentalBooks,setRentals}){
         let newArray = oldArray.filter((item)=>item!=name && item!=null);
        // console.log("New---->"+newArray);
        localStorage.setItem("rentals",JSON.stringify(newArray));
-       setRentals(newArray);
+       //setRentals(newArray);
    }
     return(
     <div className="rentals">

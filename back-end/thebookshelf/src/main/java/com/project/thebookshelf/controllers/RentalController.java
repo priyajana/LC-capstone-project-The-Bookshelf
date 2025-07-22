@@ -28,7 +28,7 @@ public class RentalController {
     RentalRepository rentalRepository;
 
     // GET all rentals for specific user
-    // Corresponds to http://localhost:8080/rentals/1 (for example)
+    // Corresponds to http://localhost:8080/rentals/user/1 (for example)
     @GetMapping(value="/user/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRentalsById(@PathVariable(value="userId") Long userId) {
         List<Rental> userRentals = rentalRepository.findByUserId(userId);
@@ -49,6 +49,16 @@ public class RentalController {
         User user = userRepository.findById(rentalData.getUser().getId()).orElse(null);
         if (user == null) {
             return ResponseEntity.badRequest().body("User not found");
+        }
+        boolean alreadyRented = rentalRepository.existsByUserIdAndBookName(
+                rentalData.getUser().getId(),
+                rentalData.getBookName()
+        );
+
+        if (alreadyRented) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("You have already rented this book.");
         }
         Rental newRental = new Rental(rentalData.getBookName(),rentalData.getUser());
         rentalRepository.save(newRental);
