@@ -30,6 +30,10 @@ export default function BookCard({bookDetails}){
         const bookTitle = targetBook[0].volumeInfo.title;
        
         const userId = localStorage.getItem('userId');
+        if (!userId) {
+            setMessage("Please log in to rent a book.");
+            return;
+        }
         const bookData = {
             bookName: bookTitle,
             user: {"id": parseInt(userId)}
