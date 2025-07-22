@@ -12,11 +12,14 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -70,7 +73,23 @@ public class UserController {
                 );
             SecurityContextHolder .getContext().setAuthentication(authentication);
             String jwt = jwtUtil.generateToken(authentication.getName());
-            return ResponseEntity.ok(Collections.singletonMap("token", jwt));
+            // Fetch user details
+            User user = userRepository.findByEmail(userData.getEmail());
+
+            if (user == null) {
+                throw new UsernameNotFoundException("User not found with email: " + userData.getEmail());
+            }
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", jwt);
+
+
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("id", user.getId());
+            userInfo.put("name", user.getUsername());
+            userInfo.put("email", user.getEmail());
+            response.put("user", userInfo);
+
+            return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }

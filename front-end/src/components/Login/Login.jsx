@@ -37,6 +37,8 @@ export default function Login() {
                
                 const data = await response.json();
                 localStorage.setItem('token', data.token); 
+                console.log(data.user['id']);
+                localStorage.setItem('userId',data.user['id']);
                 // Optional: Delay before redirect
                 setTimeout(() => {
                     navigate('/')

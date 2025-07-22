@@ -10,7 +10,7 @@ import dummy from '../../assets/book.png';
 import Custombutton from "../shared/Custombutton";
 
 
-export default function BookCard({bookDetails,rentalBooks,setRentals}){
+export default function BookCard({bookDetails}){
 
     const {id} = useParams();
     //console.log(id);
@@ -21,24 +21,42 @@ export default function BookCard({bookDetails,rentalBooks,setRentals}){
     const[rentConfirm, setrentConfirm] = useState(false);
 
     const targetBook = bookDetails.items.filter((book)=>book.id===id);
-    const [message, setMessage] = useState('');
+   // const [message, setMessage] = useState('');
+   //   {message && <p style={{color:"red",fontSize:"12px"}}>{message}</p>}
    //console.log(targetBook? targetBook[0].volumeInfo.title:'');
-   
-    function addBook(){
-        
-         //let rentalBooks = JSON.parse(localStorage.getItem("rentals"));
-         
-         
-         const isloggedIn = localStorage.getItem("token");
-            if(isloggedIn){
-                 setrentConfirm(!rentConfirm);
-                rentalBooks && rentalBooks.push(targetBook[0].volumeInfo.title);
-         localStorage.setItem("rentals",JSON.stringify(rentalBooks));
-         setRentals(rentalBooks);
-    }else{
-        setMessage("Please log in to rent books.");
-    }
-    }
+
+    const addBook = async () => {
+    
+        const bookTitle = targetBook[0].volumeInfo.title;
+        const userId = localStorage.getItem('userId');
+        const bookData = {
+            bookName: bookTitle,
+            user: {"id": parseInt(userId)}
+        };
+        try {
+            const response = await fetch('http://localhost:8080/rentals/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(bookData)
+            });
+
+            if (response.ok) {
+               
+                console.log("Book added to rentals successfully");
+                setrentConfirm(true);
+                
+                
+            } else {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return(
         <div className="book-card">
          { !rentConfirm && 
@@ -62,7 +80,7 @@ export default function BookCard({bookDetails,rentalBooks,setRentals}){
                     <Custombutton onClick={addBook} type="button" buttonname="Rent"/>
                     
                     <Link className="link-wrapper" key="back" to={`/`}><Custombutton buttonname="Back"/></Link><br/>
-                    {message && <p style={{color:"red",fontSize:"12px"}}>{message}</p>}
+                 
                 </div>
                </div> 
 

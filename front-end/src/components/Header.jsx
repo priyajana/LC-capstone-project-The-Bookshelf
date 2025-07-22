@@ -1,27 +1,28 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom"
 
 export default function Header(){
      const [menuOpen, setMenuOpen] = useState(false);
-    const test = true;
+    
     const rentalList = JSON.parse(localStorage.getItem("rentals"));
     // Initialize from localStorage
-    // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setIsLoggedIn(!!localStorage.getItem('token'));
-    //     }, 500);  // check every 500ms
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsLoggedIn(!!localStorage.getItem('token'));
+        }, 500);  // check every 500ms
 
-    //     return () => clearInterval(interval);
-    // }, []);
-    // 
-    // const handleLogout = () => {
-    //     localStorage.removeItem('token');
-    //     localStorage.removeItem('rentals');
-
-    //     setIsLoggedIn(false);       
-    // };
+        return () => clearInterval(interval);
+    }, []);
+    
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('rentals');
+        localStorage.removeItem('userId');
+        setIsLoggedIn(false);       
+    };
 
     
     return(
@@ -31,15 +32,16 @@ export default function Header(){
                         <li  key='home' ><Link className="headerlinks" to="/">Home</Link></li>
                         <li  key='about'><Link className="headerlinks" to="/About">About</Link></li>
                          <div className="account-actions">
-                        { test? (
+                        { isLoggedIn? (
 
                                 <>
                                     <div className="dropdown">
                                         <li className="dropbtn">My Account</li>
                                         <div className="dropdown-content">
                                           <li key='newbook'><Link className="headerlinks"  to="/NewBookForm">Request a new book</Link></li>
+                                          <li key='reviews'><Link className="headerlinks"  to="/reviews">My Reviews</Link></li>
                                           <li key="rentals" ><Link className="headerlinks"  to="/rentals">My Books ({rentalList? rentalList.length:0}) </Link></li>
-                                          <li key="logout"><button className="button-link" >Logout</button></li>
+                                          <li key="logout"><button className="button-link" onClick={handleLogout} >Logout</button></li>
                                         </div>
                                  </div>
                                                                     

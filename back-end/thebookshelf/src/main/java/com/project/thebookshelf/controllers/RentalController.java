@@ -18,6 +18,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rentals")
+
+
 public class RentalController {
 
     @Autowired
@@ -50,6 +52,6 @@ public class RentalController {
         }
         Rental newRental = new Rental(rentalData.getBookName(),rentalData.getUser());
         rentalRepository.save(newRental);
-        return new ResponseEntity<>(newRental, HttpStatus.CREATED); // 201
+        return  ResponseEntity.ok(Collections.singletonMap("response", "Rental added successfully"));
     }
 }
