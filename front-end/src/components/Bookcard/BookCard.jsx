@@ -21,16 +21,23 @@ export default function BookCard({bookDetails,rentalBooks,setRentals}){
     const[rentConfirm, setrentConfirm] = useState(false);
 
     const targetBook = bookDetails.items.filter((book)=>book.id===id);
-
+    const [message, setMessage] = useState('');
    //console.log(targetBook? targetBook[0].volumeInfo.title:'');
    
     function addBook(){
-         setrentConfirm(!rentConfirm);
+        
          //let rentalBooks = JSON.parse(localStorage.getItem("rentals"));
          
-         rentalBooks && rentalBooks.push(targetBook[0].volumeInfo.title);
+         
+         const isloggedIn = localStorage.getItem("token");
+            if(isloggedIn){
+                 setrentConfirm(!rentConfirm);
+                rentalBooks && rentalBooks.push(targetBook[0].volumeInfo.title);
          localStorage.setItem("rentals",JSON.stringify(rentalBooks));
          setRentals(rentalBooks);
+    }else{
+        setMessage("Please log in to rent books.");
+    }
     }
     return(
         <div className="book-card">
@@ -54,7 +61,8 @@ export default function BookCard({bookDetails,rentalBooks,setRentals}){
                 <div className="rentorback">
                     <Custombutton onClick={addBook} type="button" buttonname="Rent"/>
                     
-                    <Link className="link-wrapper" key="back" to={`/`}><Custombutton buttonname="Back"/></Link>
+                    <Link className="link-wrapper" key="back" to={`/`}><Custombutton buttonname="Back"/></Link><br/>
+                    {message && <p style={{color:"red",fontSize:"12px"}}>{message}</p>}
                 </div>
                </div> 
 
