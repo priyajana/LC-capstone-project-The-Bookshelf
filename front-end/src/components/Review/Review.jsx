@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Custombutton from "../shared/Custombutton";
 import { Link } from "react-router-dom";
+import './Review.css';
 export default function Review({bookDetails}) {
     const {bookName} = useParams();
     const [message, setMessage] = useState("");
@@ -101,9 +102,10 @@ export default function Review({bookDetails}) {
 
     return (
         <div className="review">
-           <h3>Review for: {targetBook[0]?.volumeInfo.title}</h3>
-           <p>Author: {targetBook[0]?.volumeInfo.authors?.join(', ')}</p>
-           <p>Description: {targetBook[0]?.volumeInfo.description || "No description available."}</p>
+          <div className="reviewItems">
+           <h3 className="review_title">Review for: <span className="review_text">{targetBook[0]?.volumeInfo.title}</span></h3>
+           <p className="review_title">Author: <span className="review_text">{targetBook[0]?.volumeInfo.authors?.join(', ')}</span></p>
+           <p className="review_title">Description: <span className="review_text">{targetBook[0]?.volumeInfo.description || "No description available."}</span></p>
            {
             
             
@@ -112,8 +114,8 @@ export default function Review({bookDetails}) {
                               <textarea
                                 placeholder="Write your review here..." rows="5" cols="50" value={content} onChange={(e) => setContent(e.target.value)}></textarea><br />
                               
-                              <Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{ width: '120px' }} onClick={submitReview} />    
-                              <Custombutton buttonname="Cancel" onClick={handleCancelClick} />
+                               <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
+                             <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
                               {message && <p>{message}</p>}
                             </>
                      ) : (
@@ -121,24 +123,25 @@ export default function Review({bookDetails}) {
         {
           content ? (
                           <>
-                            <p>{content}</p>
-                            <Custombutton buttonname="Edit" onClick={handleEditClick} />
+                          <p className="review_title">My review:</p>
+                            <span className="review_text">{content}</span>
+                             <span><Custombutton buttonname="Edit" customStyle={{margin:'auto'}} onClick={handleEditClick} />
                             
-                            <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back"/></Link><br/>
+                            <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span>
                           </>
                         ) : (
                           <>
                             <p>No review yet.</p>
                             <Custombutton buttonname="Add Review" onClick={() => setIsEditing(true)} />
-                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back"/></Link><br/>
+                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link>
                           </>
          )
-        }
+          }
   </>
-  )
+    )
   
-  }
-
+     }
+</div>
         </div>
     );
 }

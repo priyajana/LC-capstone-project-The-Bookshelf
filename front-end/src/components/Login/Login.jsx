@@ -43,7 +43,7 @@ export default function Login() {
                 // Optional: Delay before redirect
                 setTimeout(() => {
                     navigate('/')
-                }, 2000);  // 2-second delay
+                }); 
 
             } else if (response.status === 401) {
                 const errorData = await response.text();

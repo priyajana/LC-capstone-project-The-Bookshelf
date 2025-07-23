@@ -1,0 +1,47 @@
+/*Rental page styles*/
+
+.review
+{
+  
+  flex: 1;
+  display: flex;
+  justify-content: center;
+      
+  
+}
+
+.reviewItems{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ background-color:rgba(162, 101, 86, 0.336);
+  
+  width:auto;
+    height:auto;
+    margin: 50px;
+  border-radius: 5px;
+}
+
+
+textarea {
+  width: 80%;
+  height: 100px;
+  padding: 10px;
+  margin:20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+.review .review_title{
+   font-weight: bold;
+    margin: 20px;
+}
+
+.review .review_text{
+   font-size: 0.875rem;
+   color:rgba(54, 10, 21, 0.336);;
+   font-weight: bold;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 20px;
+}
+

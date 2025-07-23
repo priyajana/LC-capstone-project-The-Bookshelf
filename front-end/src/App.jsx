@@ -21,7 +21,7 @@ async function fetchBooks(subject, startIndex)
         //https://www.googleapis.com/books/v1/volumes?q=subject:${subject}&maxResults=8
         //
         //https://www.googleapis.com/books/v1/volumes?q=subject:${subject}&maxResults=12
-        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject::${subject}&startIndex=${startIndex}&maxResults=12`)
+        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${subject}&startIndex=${startIndex}&maxResults=12`)
          const data = await response.json();
          // console.log(response.status);
           return data;
@@ -40,11 +40,7 @@ export default function App() {
         // Added for cases when the user clicks back button from the bookcard and navigates to the home page. this uses the local storage to save genre and fetch books based on its value.
       const savedGenre = localStorage.getItem('genre') || genres[0];
         fetchBooks(savedGenre,startIndex).then(data=>{ setBookList(data);});
-        const token = localStorage.getItem("token");
-                if (!token) {
-              // If token is missing, redirect to login
-              navigate("/login");
-            }
+       
              if(!localStorage.getItem("genre")){localStorage.setItem('genre', genres[0]);}
             setRentals(JSON.parse(localStorage.getItem("rentals"))||[]);
           }, [navigate]);
