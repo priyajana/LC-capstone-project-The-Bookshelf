@@ -13,7 +13,8 @@ export default function Login() {
         password: ''
     });
 
-    const [message, setMessage] = useState('');
+ 
+    const [error, setError] = useState('');
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -37,19 +38,20 @@ export default function Login() {
                
                 const data = await response.json();
                 localStorage.setItem('token', data.token); 
-                console.log(data.user['id']);
+               // console.log(data.user['id']);
                 localStorage.setItem('userId',data.user['id']);
                 // Optional: Delay before redirect
                 setTimeout(() => {
                     navigate('/')
                 }, 2000);  // 2-second delay
 
-            } else {
-                const errorData = await response.json();
-                setMessage(errorData.message || 'Login failed.');
+            } else if (response.status === 401) {
+                const errorData = await response.text();
+                setError(errorData.message || 'Login failed.');
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error.message);
+            setError('An error occurred while logging in.');
         }
     };
 
@@ -69,7 +71,8 @@ export default function Login() {
             <div className='button_div'>
             <button className="loginbtn" type="submit">Login</button>
             <Link className="link-wrapper" key="back" to={`/`}><Custombutton className="cancelbtn"  buttonname="Cancel"/></Link>
-             {message && <p style={{ color: 'green' }}>{message}</p>}
+             
+             {error && <span style={{ color: 'red',fontSize: '15px' }}>{error}</span>}
             </div>
           </div>
             

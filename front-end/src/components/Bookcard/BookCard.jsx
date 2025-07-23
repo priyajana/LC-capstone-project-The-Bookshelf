@@ -21,9 +21,7 @@ export default function BookCard({bookDetails}){
     const[rentConfirm, setrentConfirm] = useState(false);
      const [message, setMessage] = useState('');
     const targetBook = bookDetails.items.filter((book)=>book.id===id);
-   // const [message, setMessage] = useState('');
-   //   {message && <p style={{color:"red",fontSize:"12px"}}>{message}</p>}
-   //console.log(targetBook? targetBook[0].volumeInfo.title:'');
+    //console.log("Target Book---->",bookDetails.items);
 
     const rentBook = async () => {
     

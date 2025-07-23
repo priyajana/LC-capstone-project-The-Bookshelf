@@ -13,7 +13,7 @@ export default function Rentals() {
   {
                 
           try {
-            const response = await fetch(`http://localhost:8080/rentals/user/${userId}`, {
+            const response = await fetch(`http://localhost:8080/rentals/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ export default function Rentals() {
                 const data = await response.json();
                 console.log("Fetched rentals:", data);
 
-                return data.map(item => item.bookName); // Assuming bookName is the field you want
-                
-                
+                return data.map(item => ({ id: item.id, bookName: item.bookName }));
+
+
             } else {
                 const errorData = await response.json();
                 console.error('Error:', errorData);
@@ -41,22 +41,38 @@ export default function Rentals() {
    useEffect(()=>{
 
        fetchRentals(userId).then(data=>{ 
+        
         setRentalBooks(data);   
     });
         
    },[]);
 
+const deleteRental = async (e) => {
+    let rentalId = parseInt(e.target.value);
+    console.log("Deleting rental:", rentalId);
+    try {
+        const response = await fetch(`http://localhost:8080/rentals/delete/${rentalId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
 
+        if (response.ok) {
+            setRentalBooks(prevBooks => prevBooks.filter(book => book.id !== rentalId));
+            console.log("Rental deleted successfully");
+        } else {
+            const errorData = await response.json();
+            console.error('Error deleting rental:', errorData);
+        }
+    }
+    catch (error) {
+        console.error('Error:', error);
+    }
+}
 
-   function deleteBook(e){
-        let name = e.target.value;
-        let oldArray = JSON.parse(localStorage.getItem("rentals"))||[];
-        let newArray = oldArray.filter((item)=>item!=name && item!=null);
-       // console.log("New---->"+newArray);
-       localStorage.setItem("rentals",JSON.stringify(newArray));
-       //setRentals(newArray);
-   }
-    return(
+   return(
     <div className="rentals">
             <div className="rentalItems">
             {
@@ -68,6 +84,9 @@ export default function Rentals() {
                                         Book Name
                                     </th>
                                     <th>
+                                        Review
+                                    </th>
+                                    <th>
                                         Options
                                     </th>
                                     </tr>
@@ -75,9 +94,11 @@ export default function Rentals() {
                             <tbody>
                             {
                                 rentalBooks.map((item,index)=>( 
-                                    <tr key={item}>
-                                        <td>{index+1}.&nbsp;{item}</td>
-                                        <td><Custombutton type="button" style={{padding:'5px'}} buttonname="delete" value = {item} onClick={deleteBook}/></td>
+                                    <tr key={item.id}>
+                                        <td>{index+1}.&nbsp;{item.bookName}</td>
+                                        
+                                        <td style={{textAlign: 'center'}}><Link style={{color:'rgb(88, 17, 17)'}} to={`/review/${item.bookName}`}> Review</Link></td>
+                                        <td style={{textAlign: 'center'}}><Custombutton type="button" customStyle={{margin:'10px'}} buttonname="delete" value = {item.id} onClick={deleteRental}/></td>
                                     </tr>
                                 ))
                             } 

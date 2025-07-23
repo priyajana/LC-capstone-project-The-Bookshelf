@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     // Method to find reviews by user ID
-    List<Review> findByUserId(Long userI);
+    Review findByUserIdAndBookName(Long userId, String bookName);
 }
 

@@ -29,7 +29,7 @@ public class RentalController {
 
     // GET all rentals for specific user
     // Corresponds to http://localhost:8080/rentals/user/1 (for example)
-    @GetMapping(value="/user/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRentalsById(@PathVariable(value="userId") Long userId) {
         List<Rental> userRentals = rentalRepository.findByUserId(userId);
         if (!userRentals.isEmpty()) {
@@ -42,7 +42,7 @@ public class RentalController {
 
 
 
-    // POST a new review
+    // POST a new rental
     // Endpoint http://localhost:8080/rentals/add
     @PostMapping(value="/add")
     public ResponseEntity<?> addRentals(@RequestBody Rental rentalData) {
@@ -63,5 +63,19 @@ public class RentalController {
         Rental newRental = new Rental(rentalData.getBookName(),rentalData.getUser());
         rentalRepository.save(newRental);
         return  ResponseEntity.ok(Collections.singletonMap("response", "Rental added successfully"));
+    }
+
+    // DELETE an existing rental
+    // Corresponds to http://localhost:8080/rentals/delete/6 (for example)
+    @DeleteMapping(value="/delete/{rentalId}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteReview(@PathVariable(value="rentalId") Long rentalId) {
+        Rental currentRental = rentalRepository.findById(rentalId).orElse(null);
+        if (currentRental != null) {
+            rentalRepository.deleteById(rentalId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204
+        } else {
+            String response = "Rental with ID of " + rentalId + " not found.";
+            return new ResponseEntity<>(Collections.singletonMap("response", response), HttpStatus.NOT_FOUND); // 404
+        }
     }
 }

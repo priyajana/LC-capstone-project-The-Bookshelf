@@ -20,7 +20,7 @@ export default function Header(){
     
     const fetchRentalCount = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/rentals/user/${userId}`, {
+            const response = await fetch(`http://localhost:8080/rentals/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +66,6 @@ export default function Header(){
                                         <li className="dropbtn">My Account</li>
                                         <div className="dropdown-content">
                                           <li key='newbook'><Link className="headerlinks"  to="/NewBookForm">Request a new book</Link></li>
-                                          <li key='reviews'><Link className="headerlinks"  to="/reviews">My Reviews</Link></li>
                                           <li key="rentals" ><Link className="headerlinks"  to="/rentals">My Books ({rentalsCount? rentalsCount:0}) </Link></li>
                                           <li key="logout"><button className="button-link" onClick={handleLogout} >Logout</button></li>
                                         </div>

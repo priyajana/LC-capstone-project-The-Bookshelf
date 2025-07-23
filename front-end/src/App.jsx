@@ -1,6 +1,6 @@
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import './App.css'
-
+import { useNavigate } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer";
 import About from "./components/About/About";
@@ -12,6 +12,7 @@ import Rentals from "./components/Rentals/Rentals";
 import NewBookForm from "./components/Newbook/NewBookForm";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
+import Review from "./components/Review/Review";
 
 const genres = ["Thriller", "Comedy", "Romance","Drama","Science","Dystopian","Psychology","Childrens"];
 async function fetchBooks(subject, startIndex)
@@ -33,16 +34,22 @@ export default function App() {
   const [bookList, setBookList] = useState(null);
   const [startIndex,setStartIndex] = useState(0);
   const [rentalBooks,setRentals]= useState([]);
-  
+  const navigate = useNavigate();
     useEffect(()=>
       {
         // Added for cases when the user clicks back button from the bookcard and navigates to the home page. this uses the local storage to save genre and fetch books based on its value.
       const savedGenre = localStorage.getItem('genre') || genres[0];
         fetchBooks(savedGenre,startIndex).then(data=>{ setBookList(data);});
-        
-      if(!localStorage.getItem("genre")){localStorage.setItem('genre', genres[0]);}
-      setRentals(JSON.parse(localStorage.getItem("rentals"))||[]);
-    },[]);
+        const token = localStorage.getItem("token");
+                if (!token) {
+              // If token is missing, redirect to login
+              navigate("/login");
+            }
+             if(!localStorage.getItem("genre")){localStorage.setItem('genre', genres[0]);}
+            setRentals(JSON.parse(localStorage.getItem("rentals"))||[]);
+          }, [navigate]);
+     
+   
     //console.log(bookList);
     //bookList && console.log(bookList.items.length);
 
@@ -50,7 +57,7 @@ export default function App() {
     <>
       
       <div className="App">
-        <Router>
+       
             <div className="page-layout">
               <Header/>
                        <Routes>
@@ -62,12 +69,13 @@ export default function App() {
                               <Route path="/NewBookForm" element={<NewBookForm genres={genres}/>} />
                               <Route path="/register" element={<Register/>} />
                               <Route path="/details/:id" element={<BookCard bookDetails={bookList} rentalBooks={rentalBooks} setRentals={setRentals}/>} />
+                              <Route path="/review/:bookName" element={<Review bookDetails={bookList} />} />
                               <Route path="/login" element={<Login/>} />
 
                       </Routes>
                 <Footer/>
             </div>
-        </Router>
+    
         
     
       </div>    
