@@ -40,6 +40,7 @@ export default function Login() {
                 localStorage.setItem('token', data.token); 
                // console.log(data.user['id']);
                 localStorage.setItem('userId',data.user['id']);
+                localStorage.setItem('userName',data.user['name']);
                 // Optional: Delay before redirect
                 setTimeout(() => {
                     navigate('/')

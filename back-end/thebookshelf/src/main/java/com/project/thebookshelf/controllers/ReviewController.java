@@ -24,7 +24,7 @@ public class ReviewController {
     ReviewRepository reviewRepository;
 
     // GET a reviews for specific user
-    // Corresponds to http://localhost:8080/reviews/1 (for example)
+    // Corresponds to http://localhost:8080/reviews/charlotte'sweb/1 (for example)
     @GetMapping(value="/{bookName}/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getReviewsById(@PathVariable(value="userId") Long userId,@PathVariable(value="bookName") String bookName) {
         Review userReview = reviewRepository.findByUserIdAndBookName(userId, bookName);

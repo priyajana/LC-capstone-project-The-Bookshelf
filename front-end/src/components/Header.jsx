@@ -46,9 +46,10 @@ export default function Header(){
         localStorage.removeItem('token');
         localStorage.removeItem('rentals');
         localStorage.removeItem('userId');
-        setRentalsCount
-        setIsLoggedIn(false);   
-        navigate('/'); // Redirect to home page after logout    
+        localStorage.removeItem('userName');
+        setRentalsCount(0);
+        setIsLoggedIn(false);
+        navigate('/'); // Redirect to home page after logout
     };
 
     
@@ -63,7 +64,8 @@ export default function Header(){
 
                                 <>
                                     <div className="dropdown" onMouseEnter={fetchRentalCount}>
-                                        <li className="dropbtn">My Account</li>
+                                        <li className="dropbtn">Welcome, {localStorage.getItem('userName')}</li>
+
                                         <div className="dropdown-content">
                                           <li key='newbook'><Link className="headerlinks"  to="/NewBookForm">Request a new book</Link></li>
                                           <li key="rentals" ><Link className="headerlinks"  to="/rentals">My Books ({rentalsCount? rentalsCount:0}) </Link></li>
