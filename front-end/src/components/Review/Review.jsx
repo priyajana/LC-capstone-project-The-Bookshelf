@@ -128,12 +128,13 @@ export default function Review({bookDetails}) {
                              <span><Custombutton buttonname="Edit" customStyle={{margin:'auto'}} onClick={handleEditClick} />
                             
                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span>
+                             {message && <p>{message}</p>}
                           </>
                         ) : (
                           <>
                             <p>No review yet.</p>
-                            <Custombutton buttonname="Add Review" onClick={() => setIsEditing(true)} />
-                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link>
+                           <span><Custombutton buttonname="Add Review" onClick={() => setIsEditing(true)} />
+                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span> 
                           </>
          )
           }
