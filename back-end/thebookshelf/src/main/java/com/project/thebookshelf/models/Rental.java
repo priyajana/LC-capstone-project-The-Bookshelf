@@ -12,9 +12,7 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
-    @Column(name = "bookName", nullable = false)
+    @Column(name = "book_name", nullable = false)
     private String bookName;
 
     @ManyToOne
