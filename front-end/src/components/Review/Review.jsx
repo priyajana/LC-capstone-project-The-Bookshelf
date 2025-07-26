@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Custombutton from "../shared/Custombutton";
 import { Link } from "react-router-dom";
 import './Review.css';
+import CustomMsg from "../shared/CustomMsg";
 export default function Review({bookDetails}) {
     const {bookName} = useParams();
     const [message, setMessage] = useState("");
@@ -12,7 +13,10 @@ export default function Review({bookDetails}) {
     const[initialContent, setInitialContent] = useState("");
     const [content, setContent] = useState(initialContent);
 
-    const handleEditClick = () => setIsEditing(true);
+    const handleEditClick = () => {
+        setIsEditing(true);
+        setMessage(""); // clear message when editing starts
+    };
     const handleCancelClick = () => {
     setIsEditing(false);
     setContent(initialContent); // reset to original if cancelled
@@ -116,7 +120,7 @@ export default function Review({bookDetails}) {
                               
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                              <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
-                              {message && <p>{message}</p>}
+                              <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />
                             </>
                      ) : (
                        <>
@@ -128,11 +132,11 @@ export default function Review({bookDetails}) {
                              <span><Custombutton buttonname="Edit" customStyle={{margin:'auto'}} onClick={handleEditClick} />
                             
                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span>
-                             {message && <p>{message}</p>}
+                             {message && <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />}
                           </>
                         ) : (
                           <>
-                            <p>No review yet.</p>
+                            <p style={{ padding: '20px'}}>No review yet.</p>
                            <span><Custombutton buttonname="Add Review" onClick={() => setIsEditing(true)} />
                              <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span> 
                           </>
