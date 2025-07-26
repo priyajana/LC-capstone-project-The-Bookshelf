@@ -4,10 +4,12 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CustomMsg from '../shared/CustomMsg';
 
 import './Register.css';
 
-
+// This component handles the registration functionality for the application
+// It allows users to enter their username, email, password, and repeat password, validates the input, and submits the data.
 
 export default function Register(){
    
@@ -20,6 +22,8 @@ export default function Register(){
   });
 
    const [message, setMessage] = useState('');
+  const [errors, setErrors] = useState({});
+
    const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -27,7 +31,8 @@ export default function Register(){
     });
   };
 
-
+  // Function to validate form data
+  // This function checks if the form data meets the required criteria
   function validateForm(data){
         const errors = {};
 
@@ -45,26 +50,27 @@ export default function Register(){
 
         if (!data.password) {
             errors.password = 'Password is required';
-        } 
-
+        } else if (data.password.length < 8) {
+            errors.password = 'Password must be at least 8 characters long';
+        }
         if (!data.repeat_password) {
             errors.repeat_password = 'Repeat Password is required';
+        }
+        else if (data.password !== data.repeat_password) {
+            errors.repeat_password = 'Passwords do not match';
         }
 
         return errors;
     }
     
+  // Function to handle form submission
+  // This function will be called when the form is submitted
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const errors = validateForm(formData);
-    if (Object.keys(errors).length > 0) {
-        const errorList = Object.values(errors).join(' | ');
-      setMessage(errorList);
-      return;
-    }
-
-    try {
+    const newErrors = validateForm(formData);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+        try {
       const response = await fetch('http://localhost:8080/user/register', {
         method: 'POST',
         headers: {
@@ -84,35 +90,43 @@ export default function Register(){
         }, 2000);  // 2-second delay to show message
       } else {
         const errorData = await response.json();
-        setMessage(errorData.message || 'Registration failed.');
+        setErrors({ server: errorData.message || 'Registration failed.' });
       }
     } catch (error) {
       console.error('Error:', error);
-      
+      setErrors({ server: 'An error occurred during registration.' });
     }
+    }
+
+    
   };
 
     return(
    <div className="register-container">
    <form onSubmit={handleSubmit}>
         <div className="reg_container">
-            <h1>Register</h1>
+            <h1>Registration</h1>
                     <p>Please fill in this form to create an account.</p>
                     
                     <label><b>Name</b></label>
                     <input type="text" placeholder="Enter Name" name="username" id="username" value={formData.username} onChange={handleChange} required/>
+                    {errors.username && <CustomMsg message={errors.username} customStyle={{ color: 'red' }} />}
 
                     <label ><b>Email</b></label>
                     <input type="text" placeholder="Enter Email" name="email" id="email" value={formData.email} onChange={handleChange} required/>
+                    {errors.email && <CustomMsg message={errors.email} customStyle={{ color: 'red' }} />}
 
                     <label ><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="password" id="psw" value={formData.password} onChange={handleChange} required/>
+                    {errors.password && <CustomMsg message={errors.password} customStyle={{ color: 'red' }} />}
 
                     <label ><b>Repeat Password</b></label>
                     <input type="password" placeholder="Repeat Password" name="repeat_password" id="psw-repeat" value={formData.repeat_password} onChange={handleChange} required/>
+                    {errors.repeat_password && <CustomMsg message={errors.repeat_password} customStyle={{ color: 'red' }} />}
 
                     <button type="submit" className="registerbtn">Register</button>
-                    {message && <p style={{ color: 'green' }}>{message}</p>}
+                    <CustomMsg message={message} customStyle={{ color: 'green' }} />
+
                 <div className="container signin">
                     <p>Already have an account? <Link to="/login">Login</Link></p>
                 </div>
