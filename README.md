@@ -24,7 +24,7 @@ Built with modern front-end technologies and backed by a robust backend, it feat
 
 
 ### Wireframes
-![Wireframes](https://wireframe.cc/pro/pp/1dbb0983b906360
+![Wireframes](https://wireframe.cc/pro/pp/1dbb0983b906360)
 
 ### ERD Diagram
 ![ERD Diagram](https://drive.google.com/file/d/1vxi6AtRFWBAc8L2ybaiCFsuby2JgbMZx/view?usp=sharing)
