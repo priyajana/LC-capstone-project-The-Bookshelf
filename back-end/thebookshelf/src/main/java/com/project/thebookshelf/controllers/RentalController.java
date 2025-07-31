@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * RentalController handles requests related to book rentals.
+ * It allows users to view their rentals, add new rentals, and delete existing rentals.
+ */
 @RestController
 @RequestMapping("/rentals")
 
@@ -27,7 +31,7 @@ public class RentalController {
     @Autowired
     RentalRepository rentalRepository;
 
-    // GET all rentals for specific user
+    // GET rentals for a specific user
     // Corresponds to http://localhost:8080/rentals/user/1 (for example)
     @GetMapping(value="/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRentalsById(@PathVariable(value="userId") Long userId) {

@@ -14,6 +14,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/*
+ * ReviewController.java
+ * This controller handles requests related to book reviews.
+ * It allows users to create, read and update reviews.
+ */
+
+
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
@@ -23,7 +30,7 @@ public class ReviewController {
     @Autowired
     ReviewRepository reviewRepository;
 
-    // GET a reviews for specific user
+    // GET all reviews by book name and user ID
     // Corresponds to http://localhost:8080/reviews/charlotte'sweb/1 (for example)
     @GetMapping(value="/{bookName}/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getReviewsById(@PathVariable(value="userId") Long userId,@PathVariable(value="bookName") String bookName) {
@@ -38,7 +45,7 @@ public class ReviewController {
 
 
 
-    // POST a new review
+    // CREATE a new review
     // Endpoint http://localhost:8080/review/add
     @PostMapping(value="/add")
     public ResponseEntity<?> createNewReview(@RequestBody Review reviewData) {
@@ -51,6 +58,7 @@ public class ReviewController {
         return new ResponseEntity<>(newReview, HttpStatus.CREATED); // 201
     }
 
+    // Update an existing review
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateReview(@PathVariable Long id, @RequestBody Review updatedReview) {
         Optional<Review> optionalReview = reviewRepository.findById(id);

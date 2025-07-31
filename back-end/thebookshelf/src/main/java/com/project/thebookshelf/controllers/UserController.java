@@ -21,6 +21,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * UserController handles user-related operations such as registration, login, and fetching user details.
+ * It uses JWT for authentication and authorization.
+ */
 @RestController
 @RequestMapping("/user")
 
@@ -36,7 +40,7 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // GET a single user using their email
+    // Get user details by email
     // Corresponds to http://localhost:8080/user/details/xxx@ffds.com (for example)
     @GetMapping(value="/details/{email}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUserByEmail(@PathVariable(value="email") String email) {
