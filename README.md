@@ -27,7 +27,7 @@ Built with modern front-end technologies and backed by a robust backend, it feat
 ![Wireframes](https://wireframe.cc/pro/pp/1dbb0983b906360)
 
 ### ERD Diagram
-![ERD Diagram](https://drive.google.com/file/d/1vxi6AtRFWBAc8L2ybaiCFsuby2JgbMZx/view?usp=sharing)
+![ERD Diagram](https://github.com/priyajana/LC-capstone-project-The-Bookshelf/blob/main/bookshelf_erd.png)
  
 
 
@@ -104,4 +104,4 @@ Built with modern front-end technologies and backed by a robust backend, it feat
    ```
     - The backend will run on `http://localhost:8080` by default.
     - Ensure that the PostgreSQL database is running and configured correctly in the `application.properties` file.
-    - You may need to set up the database schema and initial data. This can typically be done by running the application, which will execute any SQL scripts located in the `src/main/resources` directory.
+   
