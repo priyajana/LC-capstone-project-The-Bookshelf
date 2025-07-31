@@ -6,7 +6,8 @@
 The BookShelf is a web application that allows users to manage their book collections. Users can add, edit, and delete books, as well as view details about each book. The
 application is built using React for the frontend and Spring Boot for the backend, with PostgreSQL as the database.
 Bookshelf is a user-friendly web application that lets readers discover, review, and rent books in a community-driven platform.
-Built with modern front-end technologies and backed by a robust backend, it features user registration, book listings, rental tracking, and review functionalities. Whether you're an avid reader or just looking for your next great read, Bookshelf makes it easy to explore, share, and manage your personal reading journey.
+Built with modern front-end technologies and backed by a robust backend, it features user registration, book listings, rental tracking, and review functionalities.
+Whether you're an avid reader or just looking for your next great read, Bookshelf makes it easy to explore, share, and manage your personal reading journey.
 
 
 ### Technologies utilized in this project:
