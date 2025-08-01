@@ -5,14 +5,22 @@ import { Link } from "react-router-dom";
 import './Review.css';
 import CustomMsg from "../shared/CustomMsg";
 import Ratings from "../shared/Ratings";
-export default function Review({bookDetails}) {
-    const {bookName} = useParams();
+
+export default function Review({ bookDetails }) {
+    const {bookId} = useParams();
     const [message, setMessage] = useState("");
-    const targetBook = bookDetails.items.filter((book)=>book.volumeInfo.title===bookName);
+
+    const targetBook = bookDetails.items.filter((book) => book.id === bookId);
     const [reviewId, setReviewId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const[initialContent, setInitialContent] = useState("");
     const [content, setContent] = useState(initialContent);
+    const [rating, setRating] = useState(0);
+
+    const handleRatingChange = (newRating) => {
+   
+    setRating(newRating);
+  };
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -25,9 +33,9 @@ export default function Review({bookDetails}) {
 
   const userId = localStorage.getItem('userId');
 
-  async function fetchReview(userId, bookName) {
+  async function fetchReview(userId, bookId) {
     try {
-      const response = await fetch(`http://localhost:8080/reviews/${bookName}/${userId}`, {
+      const response = await fetch(`http://localhost:8080/reviews/${bookId}/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -39,9 +47,13 @@ export default function Review({bookDetails}) {
       if (response.ok) {
         const data = await response.json();
         return data;
-      } else {
+      } 
+       else if (response.status === 404) {
+                return ;
+            }
+      else {
         const errorData = await response.json();
-        console.error('Error:', errorData);
+        console.error('Error getting reviews:', errorData);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -49,7 +61,7 @@ export default function Review({bookDetails}) {
   }
     
   useEffect(() => {
-    fetchReview(userId, bookName).then(data => {
+    fetchReview(userId, targetBook[0]?.volumeInfo.title).then(data => {
       if (data) {
          console.log("Fetched review:", data);
           setInitialContent(data.content);
@@ -78,8 +90,9 @@ export default function Review({bookDetails}) {
                 },
                 body: JSON.stringify({
                     user: { id: userId },
-                    bookName: bookName,
-                    content: reviewText
+                    bookName: targetBook[0]?.volumeInfo.title,
+                    content: reviewText,
+                    rating: rating
                 })
             });
 
@@ -93,7 +106,8 @@ export default function Review({bookDetails}) {
                 setInitialContent(reviewText); // update initial content
                 setContent(reviewText); // update current content    
                 setMessage(reviewId ? "Review updated!" : "Review added!");
-            } else {
+            } 
+            else {
                 const errorData = await response.json();
                 console.error('Error:', errorData);
                 setMessage("Failed to add review.");
@@ -118,7 +132,8 @@ export default function Review({bookDetails}) {
                             <>
                               <textarea
                                 placeholder="Write your review here..." rows="5" cols="50" value={content} onChange={(e) => setContent(e.target.value)}></textarea><br />
-                              <Ratings />
+                                <p className="review_title">My Rating: </p><Ratings onRatingChange={handleRatingChange}/>
+                              {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
                               <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />

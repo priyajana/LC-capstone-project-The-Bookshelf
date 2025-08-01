@@ -26,6 +26,7 @@ export default function BookCard({bookDetails}){
     const rentBook = async () => {
     
         const bookTitle = targetBook[0].volumeInfo.title;
+        //console.log("Book title to be rented is--->",bookTitle);
        
         const userId = localStorage.getItem('userId');
         if (!userId) {
@@ -34,7 +35,8 @@ export default function BookCard({bookDetails}){
         }
         const bookData = {
             bookName: bookTitle,
-            user: {"id": parseInt(userId)}
+            user: {"id": parseInt(userId)},
+            bookId: targetBook[0].id,
         };
         try {
             const response = await fetch('http://localhost:8080/rentals/add', {
@@ -55,6 +57,10 @@ export default function BookCard({bookDetails}){
             } else if(response.status === 409) {
                 const errorData = await response.text();
                 setMessage(errorData || "Book already rented");
+            }
+            else if(response.status === 403) {
+               setMessage("Please log in to rent a book.");
+                 return;
             }
         } catch (error) {
             console.error('Error:', error);

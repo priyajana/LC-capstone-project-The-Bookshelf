@@ -1,6 +1,6 @@
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import './App.css'
-import { useNavigate } from "react-router-dom";
+
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer";
 import About from "./components/About/About";
@@ -13,6 +13,7 @@ import NewBookForm from "./components/Newbook/NewBookForm";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Review from "./components/Review/Review";
+import PrivateRoute from "./components/shared/PrivateRoute";
 
 const genres = ["Thriller", "Comedy", "Romance","Drama","Science","Dystopian","Psychology","Childrens"];
 async function fetchBooks(subject, startIndex)
@@ -34,7 +35,8 @@ export default function App() {
   const [bookList, setBookList] = useState(null);
   const [startIndex,setStartIndex] = useState(0);
   const [rentalBooks,setRentals]= useState([]);
-  const navigate = useNavigate();
+
+    
     useEffect(()=>
       {
         // Added for cases when the user clicks back button from the bookcard and navigates to the home page. this uses the local storage to save genre and fetch books based on its value.
@@ -42,11 +44,11 @@ export default function App() {
         fetchBooks(savedGenre,startIndex).then(data=>{ setBookList(data);});
        
              if(!localStorage.getItem("genre")){localStorage.setItem('genre', genres[0]);}
-            setRentals(JSON.parse(localStorage.getItem("rentals"))||[]);
-          }, [navigate]);
+        
+          }, [startIndex]);
      
    
-    //console.log(bookList);
+  
     //bookList && console.log(bookList.items.length);
 
   return (
@@ -61,11 +63,28 @@ export default function App() {
                               <Route path="/" element={<Home bookList ={bookList} setBookList={setBookList} fetchBooks={fetchBooks} genres={genres} startIndex={startIndex} setStartIndex={setStartIndex}  />} />
                               <Route path="/genre/:genre" element={<Home bookList ={bookList} setBookList={setBookList} fetchBooks={fetchBooks} genres={genres}/> }/>
                               <Route path="/About" element={<About/>} />
-                              <Route path="/rentals" element={<Rentals rentalBooks={rentalBooks} setRentals={setRentals} />}/>
-                              <Route path="/NewBookForm" element={<NewBookForm genres={genres}/>} />
+                              <Route path="/rentals" element=
+                                      {
+                                        <PrivateRoute>
+                                            <Rentals rentalBooks={rentalBooks} setRentals={setRentals} />
+
+                                      </PrivateRoute>
+                                      }/>
+                              <Route path="/NewBookForm" element=
+                                      {
+                                        <PrivateRoute>
+                                            <NewBookForm genres={genres} />
+                                      </PrivateRoute>
+                                      }/>
+                                         
                               <Route path="/register" element={<Register/>} />
                               <Route path="/details/:id" element={<BookCard bookDetails={bookList} rentalBooks={rentalBooks} setRentals={setRentals}/>} />
-                              <Route path="/review/:bookName" element={<Review bookDetails={bookList} />} />
+                              <Route path="/review/:bookId" element=
+                                      {
+                                        <PrivateRoute>
+                                          <Review bookDetails={bookList} />
+                                      </PrivateRoute>
+                                      }/>
                               <Route path="/login" element={<Login/>} />
 
                       </Routes>

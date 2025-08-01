@@ -24,9 +24,9 @@ export default function Rentals() {
             if (response.ok) {
                
                 const data = await response.json();
-                console.log("Fetched rentals:", data);
+                //console.log("Fetched rentals:", data);
 
-                return data.map(item => ({ id: item.id, bookName: item.bookName }));
+                return data.map(item => ({ id: item.id, bookName: item.bookName,bookId: item.bookId }));
 
 
             } else {
@@ -97,7 +97,7 @@ const deleteRental = async (e) => {
                                     <tr key={item.id}>
                                         <td>{index+1}.&nbsp;{item.bookName}</td>
                                         
-                                        <td style={{textAlign: 'center'}}><Link style={{color:'rgb(88, 17, 17)'}} to={`/review/${item.bookName}`}> Review</Link></td>
+                                        <td style={{textAlign: 'center'}}><Link style={{color:'rgb(88, 17, 17)'}} to={`/review/${item.bookId}`}> Review</Link></td>
                                         <td style={{textAlign: 'center'}}><Custombutton type="button" customStyle={{margin:'10px'}} buttonname="delete" value = {item.id} onClick={deleteRental}/></td>
                                     </tr>
                                 ))
