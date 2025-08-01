@@ -4,6 +4,7 @@ import Custombutton from "../shared/Custombutton";
 import { Link } from "react-router-dom";
 import './Review.css';
 import CustomMsg from "../shared/CustomMsg";
+import Ratings from "../shared/Ratings";
 export default function Review({bookDetails}) {
     const {bookName} = useParams();
     const [message, setMessage] = useState("");
@@ -117,13 +118,13 @@ export default function Review({bookDetails}) {
                             <>
                               <textarea
                                 placeholder="Write your review here..." rows="5" cols="50" value={content} onChange={(e) => setContent(e.target.value)}></textarea><br />
-                              
+                              <Ratings />
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
-                             <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
+                                <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
                               <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />
                             </>
                      ) : (
-                       <>
+                       <> 
         {
           content ? (
                           <>
