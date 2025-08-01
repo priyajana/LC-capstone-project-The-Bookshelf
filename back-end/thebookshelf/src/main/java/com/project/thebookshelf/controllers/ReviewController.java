@@ -30,11 +30,11 @@ public class ReviewController {
     @Autowired
     ReviewRepository reviewRepository;
 
-    // GET all reviews by book name and user ID
-    // Corresponds to http://localhost:8080/reviews/charlotte'sweb/1 (for example)
-    @GetMapping(value="/{bookName}/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getReviewsById(@PathVariable(value="userId") Long userId,@PathVariable(value="bookName") String bookName) {
-        Review userReview = reviewRepository.findByUserIdAndBookName(userId, bookName);
+    // GET all reviews by book ID and user ID
+    // Corresponds to http://localhost:8080/reviews/FSDFSDW2132/1 (for example)
+    @GetMapping(value="/{bookId}/{userId}", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getReviewsById(@PathVariable(value="userId") Long userId,@PathVariable(value="bookId") String bookId) {
+        Review userReview = reviewRepository.findByUserIdAndBookId(userId, bookId);
         if (userReview !=null) {
             return new ResponseEntity<>(userReview, HttpStatus.OK); // 200
         } else {
@@ -53,7 +53,7 @@ public class ReviewController {
         if (user == null) {
             return ResponseEntity.badRequest().body("User not found");
         }
-        Review newReview = new Review(reviewData.getBookName(), reviewData.getContent(),reviewData.getUser());
+        Review newReview = new Review(reviewData.getBookName(), reviewData.getContent(),reviewData.getRating(),reviewData.getBookId(), reviewData.getUser());
         reviewRepository.save(newReview);
         return new ResponseEntity<>(newReview, HttpStatus.CREATED); // 201
     }
@@ -65,7 +65,8 @@ public class ReviewController {
 
         if (optionalReview.isPresent()) {
             Review review = optionalReview.get();
-            review.setContent(updatedReview.getContent());  // Only updating the content
+            review.setContent(updatedReview.getContent());
+            review.setRating(updatedReview.getRating());// Only updating the content
             reviewRepository.save(review);
             return ResponseEntity.ok(review);
         } else {

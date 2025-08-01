@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +41,12 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    // Validate the JWT token
+    // Endpoint http://localhost:8080/user/validate
+    @GetMapping("/validate")
+    public ResponseEntity<String> validateToken(Principal principal) {
+        return ResponseEntity.ok("Token is valid");
+    }
     // Get user details by email
     // Corresponds to http://localhost:8080/user/details/xxx@ffds.com (for example)
     @GetMapping(value="/details/{email}", produces= MediaType.APPLICATION_JSON_VALUE)

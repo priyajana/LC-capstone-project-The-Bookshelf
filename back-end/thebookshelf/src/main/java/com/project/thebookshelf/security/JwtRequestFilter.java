@@ -55,6 +55,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+            else{
+                // Token is invalid, do not set authentication
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+                response.getWriter().write("Invalid JWT token");
+                return; // Stop further processing of the request
+            }
+
+
         }
         filterChain.doFilter(request, response);
     }

@@ -15,17 +15,23 @@ public class Rental {
     @Column(name = "book_name", nullable = false)
     private String bookName;
 
+    @Column(name = "book_id", nullable = false)
+    private String bookId;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference
     private User user;
 
+
+
     public Rental() {
         // Default constructor
     }
 
-    public Rental(String bookName, User user) {
+    public Rental(String bookName, String bookId,User user) {
         this.bookName = bookName;
+        this.bookId = bookId;
         this.user = user;
     }
     // Getters and setters
@@ -52,5 +58,13 @@ public class Rental {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 }

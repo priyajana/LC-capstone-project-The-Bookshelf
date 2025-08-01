@@ -57,6 +57,7 @@ public class RentalController {
         boolean alreadyRented = rentalRepository.existsByUserIdAndBookName(
                 rentalData.getUser().getId(),
                 rentalData.getBookName()
+
         );
 
         if (alreadyRented) {
@@ -64,7 +65,7 @@ public class RentalController {
                     .status(HttpStatus.CONFLICT)
                     .body("You have already rented this book.");
         }
-        Rental newRental = new Rental(rentalData.getBookName(),rentalData.getUser());
+        Rental newRental = new Rental(rentalData.getBookName(),rentalData.getBookId(),rentalData.getUser());
         rentalRepository.save(newRental);
         return  ResponseEntity.ok(Collections.singletonMap("response", "Rental added successfully"));
     }
