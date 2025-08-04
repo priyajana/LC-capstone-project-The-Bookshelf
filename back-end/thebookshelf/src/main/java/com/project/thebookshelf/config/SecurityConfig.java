@@ -3,6 +3,7 @@ package com.project.thebookshelf.config;
 import com.project.thebookshelf.security.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -54,6 +55,7 @@ public class SecurityConfig {
                 // This allows cross-origin requests, which is useful for development with a separate frontend
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/user/register", "/user/login").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -66,9 +68,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));  // Vite frontend
+        config.setAllowedOrigins(List.of("http://localhost:5173",
+                            "https://main.d2bdndcu0u507t.amplifyapp.com"));  // USE AMPLIFY FRONT-END URL
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
+        config.addExposedHeader("Access-Control-Allow-Origin");
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
