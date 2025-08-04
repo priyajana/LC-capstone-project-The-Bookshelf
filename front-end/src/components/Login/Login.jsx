@@ -54,7 +54,9 @@ export default function Login() {
         setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
         try {
-            const response = await fetch('http://localhost:8080/user/login', {
+            // local url -> http://localhost:8080/user/login
+            
+            const response = await fetch('http://ec2-3-133-83-168.us-east-2.compute.amazonaws.com:8080/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
