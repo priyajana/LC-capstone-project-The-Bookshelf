@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS reviews (
     id BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL,
     book_name VARCHAR(200) NOT NULL,
+    book_id VARCHAR (200) NOT NULL,
     content TEXT,
+    rating INT ,
     CONSTRAINT fk_user_review FOREIGN KEY (user_id)
         REFERENCES users(id) ON DELETE CASCADE
 );
@@ -22,7 +24,8 @@ CREATE TABLE IF NOT EXISTS reviews (
 CREATE TABLE IF NOT EXISTS rentals (
     id BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL,
-    book_name VARCHAR(200) NOT NULL,
+    book_name VARCHAR (200) NOT NULL,
+    book_id VARCHAR (200) NOT NULL,
     CONSTRAINT fk_user_rental FOREIGN KEY (user_id)
         REFERENCES users(id) ON DELETE CASCADE
 );

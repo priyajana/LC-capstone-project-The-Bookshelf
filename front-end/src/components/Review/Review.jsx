@@ -61,7 +61,7 @@ export default function Review({ bookDetails }) {
   }
     
   useEffect(() => {
-    fetchReview(userId, targetBook[0]?.volumeInfo.title).then(data => {
+    fetchReview(userId, bookId).then(data => {
       if (data) {
          console.log("Fetched review:", data);
           setInitialContent(data.content);
