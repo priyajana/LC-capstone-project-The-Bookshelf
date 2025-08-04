@@ -41,6 +41,7 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
+
     // Validate the JWT token
     // Endpoint http://localhost:8080/user/validate
     @GetMapping("/validate")
