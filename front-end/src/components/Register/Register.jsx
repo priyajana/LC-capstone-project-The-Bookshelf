@@ -72,7 +72,7 @@ export default function Register(){
     if (Object.keys(newErrors).length === 0) {
         try {
           // LOCAL URL-> 'http://localhost:8080/user/register
-      const response = await fetch('https://k13188du0d.execute-api.us-east-2.amazonaws.com/user/register', {
+      const response = await fetch('https://pjw9uspaqc.execute-api.us-east-2.amazonaws.com/prod/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
