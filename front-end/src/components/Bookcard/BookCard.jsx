@@ -50,7 +50,7 @@ export default function BookCard({bookDetails}){
 
             if (response.ok) {
                
-                console.log("Book added to rentals successfully");
+               // console.log("Book added to rentals successfully");
                 setrentConfirm(true);
                 
                 
@@ -63,7 +63,8 @@ export default function BookCard({bookDetails}){
                  return;
             }
         } catch (error) {
-            console.error('Error:', error);
+           // console.error('Error:', error);
+           return error;
         }
     };
     return(

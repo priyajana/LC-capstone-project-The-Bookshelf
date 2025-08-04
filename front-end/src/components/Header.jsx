@@ -35,7 +35,8 @@ export default function Header(){
                 setRentalsCount(0);
             }
         } catch (error) {
-            console.error("Error fetching rental count:", error);
+            //console.error("Error fetching rental count:", error);
+            return error;
         }
     };
 

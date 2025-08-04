@@ -55,17 +55,19 @@ export default function Review({ bookDetails }) {
             }
       else {
         const errorData = await response.json();
-        console.error('Error getting reviews:', errorData);
+        return errorData;
+        //console.error('Error getting reviews:', errorData);
       }
     } catch (error) {
-      console.error('Error:', error);
+      //console.error('Error:', error);
+      return error;
     }
   }
     
   useEffect(() => {
     fetchReview(userId, bookId).then(data => {
       if (data) {
-         console.log("Fetched review:", data);
+        // console.log("Fetched review:", data);
           setInitialContent(data.content);
           setContent(data.content);
           setReviewId(data.id);
@@ -113,7 +115,7 @@ export default function Review({ bookDetails }) {
             if (response.ok) {
                
                 const data = await response.json();
-                console.log("Review added successfully:", data);
+               //.log("Review added successfully:", data);
                  
                 setIsEditing(false);
                 setReviewId(data.id); // capture or confirm ID
@@ -123,12 +125,14 @@ export default function Review({ bookDetails }) {
             } 
             else {
                 const errorData = await response.json();
-                console.error('Error:', errorData);
+                //console.error('Error:', errorData);
                 setMessage("Failed to add review.");
+                return errorData;
             }
         } catch (error) {
-            console.error('Error:', error);
+            //console.error('Error:', error);
             setMessage("An error occurred.");
+            return error;
         }
 
   }

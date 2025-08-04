@@ -31,10 +31,12 @@ export default function Rentals() {
 
             } else {
                 const errorData = await response.json();
-                console.error('Error:', errorData);
+                return errorData;
+                //console.error('Error:', errorData);
             }
         } catch (error) {
-            console.error('Error:', error);
+            return error;
+            //console.error('Error:', error);
         }
 
   }
@@ -49,7 +51,7 @@ export default function Rentals() {
 
 const deleteRental = async (e) => {
     let rentalId = parseInt(e.target.value);
-    console.log("Deleting rental:", rentalId);
+    //console.log("Deleting rental:", rentalId);
     try {
         const response = await fetch(`http://localhost:8080/rentals/delete/${rentalId}`, {
             method: 'DELETE',
@@ -61,14 +63,16 @@ const deleteRental = async (e) => {
 
         if (response.ok) {
             setRentalBooks(prevBooks => prevBooks.filter(book => book.id !== rentalId));
-            console.log("Rental deleted successfully");
+            //console.log("Rental deleted successfully");
         } else {
             const errorData = await response.json();
-            console.error('Error deleting rental:', errorData);
+            //console.error('Error deleting rental:', errorData);
+            return errorData;
         }
     }
     catch (error) {
-        console.error('Error:', error);
+       // console.error('Error:', error);
+        return error;
     }
 }
 

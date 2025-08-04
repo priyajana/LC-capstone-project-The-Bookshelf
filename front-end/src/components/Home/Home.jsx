@@ -47,7 +47,7 @@ export default function Home({bookList,setBookList,fetchBooks,genres, startIndex
         setGenre(new_genre);
         setStartIndex(0);
         localStorage.setItem('genre',new_genre);
-        console.log("Genre Changed"+localStorage.getItem('genre'));
+       // console.log("Genre Changed"+localStorage.getItem('genre'));
         //fetchBooks(new_genre,index).then(data=>{ return setBookList(data);});      
         
     }

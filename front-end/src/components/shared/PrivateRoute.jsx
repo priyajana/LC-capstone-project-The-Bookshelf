@@ -16,7 +16,7 @@ export default function PrivateRoute({ children }) {
         return;
       }
       try {
-        console.log("Validating token:", token);
+       // console.log("Validating token:", token);
         const res = await fetch('http://localhost:8080/user/validate', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -28,8 +28,9 @@ export default function PrivateRoute({ children }) {
         }
       } catch (error) {
         setIsValid(false);
-        console.error('Error validating token:', error);
+        //console.error('Error validating token:', error);
         localStorage.clear();
+        return error;
       }
     }
     checkToken();

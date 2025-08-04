@@ -80,8 +80,9 @@ export default function Login() {
                 setErrors({server: errorData.message || 'Invalid email or password' });
             }
         } catch (error) {
-            console.error('Error:', error.message);
+            //console.error('Error:', error.message);
             setErrors({ ...errors, server: 'An error occurred while logging in.' });
+            return error;
         }
     }
     };

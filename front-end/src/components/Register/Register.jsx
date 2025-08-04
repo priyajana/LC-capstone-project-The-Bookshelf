@@ -93,8 +93,9 @@ export default function Register(){
         setErrors({ server: errorData.message || 'Registration failed.' });
       }
     } catch (error) {
-      console.error('Error:', error);
+      //console.error('Error:', error);
       setErrors({ server: 'An error occurred during registration.' });
+      return error;
     }
     }
 

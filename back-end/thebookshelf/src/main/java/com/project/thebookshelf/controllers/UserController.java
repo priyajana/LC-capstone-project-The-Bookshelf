@@ -65,7 +65,7 @@ public class UserController {
     // Endpoint http://localhost:8080/user/register
     @PostMapping(value="/register")
     public ResponseEntity<?> registerUser(@RequestBody User userData) {
-        System.out.println("Received: " + userData.getUsername());
+        //System.out.println("Received: " + userData.getUsername());
         if (userRepository.findByEmail(userData.getEmail()) != null) {
             return ResponseEntity.badRequest().body("Email already registered");
         }
