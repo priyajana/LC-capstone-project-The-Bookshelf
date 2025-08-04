@@ -25,10 +25,12 @@ export default function Review({ bookDetails }) {
     const handleEditClick = () => {
         setIsEditing(true);
         setMessage(""); // clear message when editing starts
+        setRating(rating || 0); // ensure rating is set to current value or 0 if undefined
     };
     const handleCancelClick = () => {
     setIsEditing(false);
     setContent(initialContent); // reset to original if cancelled
+   
   };
 
   const userId = localStorage.getItem('userId');
@@ -67,6 +69,7 @@ export default function Review({ bookDetails }) {
           setInitialContent(data.content);
           setContent(data.content);
           setReviewId(data.id);
+          setRating(data.rating);
       }
     }); 
   },[]);
@@ -74,6 +77,16 @@ export default function Review({ bookDetails }) {
   {
         const userId = localStorage.getItem('userId');
         const reviewText = content.trim();
+
+        if (!reviewText) {
+          setMessage("Review content cannot be empty.");
+          return;
+        }
+
+        if (rating < 1 || rating > 5) {
+          setMessage("Please select a rating between 1 and 5 stars.");
+          return;
+        }
         
         // If reviewId is present, update the existing review; otherwise, create a new one
 
@@ -92,7 +105,8 @@ export default function Review({ bookDetails }) {
                     user: { id: userId },
                     bookName: targetBook[0]?.volumeInfo.title,
                     content: reviewText,
-                    rating: rating
+                    rating: rating,
+                    bookId: targetBook[0]?.id
                 })
             });
 
@@ -132,7 +146,7 @@ export default function Review({ bookDetails }) {
                             <>
                               <textarea
                                 placeholder="Write your review here..." rows="5" cols="50" value={content} onChange={(e) => setContent(e.target.value)}></textarea><br />
-                                <p className="review_title">My Rating: </p><Ratings onRatingChange={handleRatingChange}/>
+                                <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange}/>
                               {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
@@ -145,8 +159,8 @@ export default function Review({ bookDetails }) {
                           <>
                           <p className="review_title">My review:</p>
                             <span className="review_text">{content}</span>
+                             <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange}/>
                              <span><Custombutton buttonname="Edit" customStyle={{margin:'auto'}} onClick={handleEditClick} />
-                            
                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span>
                              {message && <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />}
                           </>
