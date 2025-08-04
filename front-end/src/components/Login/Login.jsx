@@ -59,7 +59,8 @@ export default function Login() {
             const response = await fetch('https://eao4o476lb.execute-api.us-east-2.amazonaws.com/Prod/user/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(formData)
             });
