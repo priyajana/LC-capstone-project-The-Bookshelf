@@ -56,7 +56,7 @@ export default function Login() {
         try {
             // local url -> http://localhost:8080/user/login
             
-            const response = await fetch('https://eao4o476lb.execute-api.us-east-2.amazonaws.com/Prod/user/login', {
+            const response = await fetch('https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
