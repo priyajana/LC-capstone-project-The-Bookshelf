@@ -20,7 +20,9 @@ export default function Header(){
     
     const fetchRentalCount = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/rentals/${userId}`, {
+            //LOCAL URL -> http://localhost:8080/rentals/${userId}
+            
+            const response = await fetch(`https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/rentals/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
