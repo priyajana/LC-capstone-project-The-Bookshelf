@@ -89,7 +89,13 @@ export default function Register(){
         setTimeout(() => {
           navigate('/login');   // Redirect to login page
         }, 2000);  // 2-second delay to show message
-      } else {
+      } 
+      else if (response.status === 400) {
+            const errorData = await response.text();
+            // Handle unauthorized access
+            setErrors({server: errorData.message || 'Email is already registered!' });
+        }
+      else {
         const errorData = await response.json();
         setErrors({ server: errorData.message || 'Registration failed.' });
       }
