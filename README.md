@@ -56,14 +56,12 @@ Whether you're an avid reader or just looking for your next great read, Bookshel
 ### Architecture Diagram
 
 ```plaintext
-
-
-+-------------------+         HTTPS        +-------------------+         JDBC       +-------------------+
-|                   |  <---------------->  |                   |  <---------------> |                   |
-|  React Frontend   |                      |   Spring Boot     |                    |   PostgreSQL RDS  |
-|  (AWS Amplify)    |                      |   Backend (EC2)   |                    |   (AWS RDS)       |
-|                   |                      |                   |                    |                   |
-+-------------------+                      +-------------------+                    +-------------------+
++-------------------+         HTTPS        +-------------------+         HTTPS      +-------------------+         JDBC       +-------------------+
+|                   |  <--------------->  |                    |  <---------------> |                   |  <---------------> |                   |
+|  React Frontend   |                     |   API Gateway      |                    |   Spring Boot     |                    |   PostgreSQL RDS  |
+|  (AWS Amplify)    |                     |   (AWS Gateway)    |                    |   Backend (EC2)   |                    |   (AWS RDS)       |
+|                   |                     |                    |                    |                   |                    |                   |
++-------------------+                     +-------------------+                     +-------------------+                    +-------------------+
 
 ```
 
