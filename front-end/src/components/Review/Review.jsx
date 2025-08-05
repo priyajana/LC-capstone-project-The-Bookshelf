@@ -18,7 +18,7 @@ export default function Review() {
     const[initialContent, setInitialContent] = useState("");
     const [content, setContent] = useState(initialContent);
     const [rating, setRating] = useState(0);
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState("");
     const handleRatingChange = (newRating) => {
    
     setRating(newRating);
@@ -57,12 +57,14 @@ export default function Review() {
       
       else {
         const errorData = await response.json();
-        setErrors(errorData.message)
-        //console.error('Error getting reviews:', errorData);
+        setErrors(typeof errorData.message === 'string'
+            ? errorData.message
+            : "Failed to fetch review."
+          );
       }
     } catch (error) {
       //console.error('Error:', error);
-     setErrors(error)
+     setErrors(error.message || "An error occurred while fetching the review.");
     }
   }
     
@@ -157,7 +159,7 @@ export default function Review() {
                               {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
-                                {errors && <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />}
+                                { typeof errors === "string" && errors && <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />}
                               <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />
                             </>
                      ) : (
