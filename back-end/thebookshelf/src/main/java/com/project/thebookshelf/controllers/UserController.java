@@ -68,7 +68,9 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody User userData) {
         //System.out.println("Received: " + userData.getUsername());
         if (userRepository.findByEmail(userData.getEmail()) != null) {
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already registered!");
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Email already registered!");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
         User user = new User(userData.getUsername(), userData.getEmail(), passwordEncoder.encode(userData.getPassword()));
         userRepository.save(user);
