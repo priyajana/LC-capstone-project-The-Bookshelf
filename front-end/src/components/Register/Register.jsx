@@ -91,9 +91,8 @@ export default function Register(){
         }, 2000);  // 2-second delay to show message
       } 
       else if (response.status === 400) {
-            const errorData = await response.text();
-            console.log("Bad request-->",response)
-            setErrors({server: errorData.message || 'Email is already registered!' });
+            
+            setErrors('Email is already registered!');
         }
       else {
         const errorData = await response.json();
