@@ -39,7 +39,9 @@ export default function BookCard({bookDetails}){
             bookId: targetBook[0].id,
         };
         try {
-            const response = await fetch('http://localhost:8080/rentals/add', {
+            //LOCAL URL ->http://localhost:8080/rentals/add
+            
+            const response = await fetch('https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/rentals/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

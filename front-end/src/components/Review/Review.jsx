@@ -37,7 +37,9 @@ export default function Review({ bookDetails }) {
 
   async function fetchReview(userId, bookId) {
     try {
-      const response = await fetch(`http://localhost:8080/reviews/${bookId}/${userId}`, {
+      // LOCAL URL -> http://localhost:8080/reviews/${bookId}/${userId}
+      
+      const response = await fetch(`https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/reviews/${bookId}/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -91,8 +93,9 @@ export default function Review({ bookDetails }) {
         }
         
         // If reviewId is present, update the existing review; otherwise, create a new one
-
-        const url = reviewId ? `http://localhost:8080/reviews/update/${reviewId}` : `http://localhost:8080/reviews/add`;  
+        //LOCAL URL FOR UPDATE / ADD REVIEW -> http://localhost:8080/reviews/update/${reviewId} | http://localhost:8080/reviews/add
+        
+        const url = reviewId ? `https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/reviews/update/${reviewId}` : `https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/reviews/add`;  
         const method = reviewId ? 'PUT' : 'POST';
                    
         
