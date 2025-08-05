@@ -13,9 +13,9 @@ Whether you're an avid reader or just looking for your next great read, Bookshel
 ### Technologies utilized in this project:
 
 - **Frontend**: React, Vite, AWS Amplify
-- **Backend**: Spring Boot, PostgreSQL, AWS EC2
+- **Backend**: Spring Boot, PostgreSQL, AWS EC2, AWS API Gateway
 - **Database**: PostgreSQL (AWS RDS)
-- **Deployment**: AWS Amplify (Frontend), AWS EC2 (Backend)
+- **Deployment**: AWS Amplify (Frontend), AWS EC2 (Backend) 
 - **Version Control**: GitHub
 - **Development Tools**: IntelliJ IDEA, Visual Studio Code
 - **Testing**: Postman for API testing
@@ -45,10 +45,10 @@ Whether you're an avid reader or just looking for your next great read, Bookshel
 - `src/main/java/com/example/thebookshelf/` - Contains the Spring Boot application code.
 - `src/main/resources/` - Contains the application properties and other resources.
 - Deployed on AWS Elastic cloud Compute (EC2).
-- Reference: [Url](https://www.baeldung.com/spring-boot-aws-ec2)
 - The backend is a Spring Boot application that provides RESTful APIs for the frontend.
 - Configured the inbound and outbound rules in the AWS security group to allow traffic on port 8080.
 - Used Telnet to test the connection to the backend server.
+- Utilized AWS API Gateway as a proxy to route HTTP requests from the frontend to the Spring Boot backend hosted on an EC2 instance.
 - Modified the application.properties file to set the server port to 8080 and the database connection details.
 - Changed the EC2 instance firewall settings to allow traffic on port 8080 using Windows Defender Firewall.
 - configured with AWS RDS (PostgreSQL) for database management.
