@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS rentals (
     user_id BIGINT NOT NULL,
     book_name VARCHAR (200) NOT NULL,
     book_id VARCHAR (200) NOT NULL,
+    author VARCHAR (200),
+    description TEXT,
     CONSTRAINT fk_user_rental FOREIGN KEY (user_id)
         REFERENCES users(id) ON DELETE CASCADE
 );

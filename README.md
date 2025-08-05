@@ -28,7 +28,7 @@ Whether you're an avid reader or just looking for your next great read, Bookshel
 ![Wireframes](https://github.com/priyajana/LC-capstone-project-The-Bookshelf/blob/main/wireframe-2.pdf)
 
 ### ERD Diagram
-![ERD Diagram](https://github.com/priyajana/LC-capstone-project-The-Bookshelf/blob/main/erd_bookshelf.png)
+![ERD Diagram](https://github.com/priyajana/LC-capstone-project-The-Bookshelf/blob/main/bookshelf_ERD(2).png)
  
 
 

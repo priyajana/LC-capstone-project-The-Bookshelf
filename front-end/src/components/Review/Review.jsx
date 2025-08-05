@@ -5,19 +5,20 @@ import { Link } from "react-router-dom";
 import './Review.css';
 import CustomMsg from "../shared/CustomMsg";
 import Ratings from "../shared/Ratings";
+import { useLocation } from "react-router-dom";
 
-export default function Review({ bookDetails }) {
+export default function Review() {
     const {bookId} = useParams();
     const [message, setMessage] = useState("");
-
-    const targetBook = bookDetails.items.filter((book) => book.id === bookId);
-    console.log("Review for->",targetBook)
+    const location = useLocation();
+    const { title, author, description } = location.state || {};
+   
     const [reviewId, setReviewId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const[initialContent, setInitialContent] = useState("");
     const [content, setContent] = useState(initialContent);
     const [rating, setRating] = useState(0);
-
+    const [errors, setErrors] = useState({});
     const handleRatingChange = (newRating) => {
    
     setRating(newRating);
@@ -38,7 +39,7 @@ export default function Review({ bookDetails }) {
 
   async function fetchReview(userId, bookId) {
     try {
-      // LOCAL URL -> http://localhost:8080/reviews/${bookId}/${userId}
+      // LOCAL URL ->   http://localhost:8080/reviews/${bookId}/${userId}
       
       const response = await fetch(`https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/reviews/${bookId}/${userId}`, {
         method: 'GET',
@@ -56,12 +57,12 @@ export default function Review({ bookDetails }) {
       
       else {
         const errorData = await response.json();
-        return errorData;
+        setErrors(errorData.message)
         //console.error('Error getting reviews:', errorData);
       }
     } catch (error) {
       //console.error('Error:', error);
-      return error;
+     setErrors(error)
     }
   }
     
@@ -82,12 +83,12 @@ export default function Review({ bookDetails }) {
         const reviewText = content.trim();
 
         if (!reviewText) {
-          setMessage("Review content cannot be empty.");
+          setErrors("Review content cannot be empty.");
           return;
         }
 
         if (rating < 1 || rating > 5) {
-          setMessage("Please select a rating between 1 and 5 stars.");
+         setErrors("Please select a rating between 1 and 5 stars.");
           return;
         }
         
@@ -107,10 +108,10 @@ export default function Review({ bookDetails }) {
                 },
                 body: JSON.stringify({
                     user: { id: userId },
-                    bookName: targetBook[0]?.volumeInfo.title,
+                    bookName: title,
                     content: reviewText,
                     rating: rating,
-                    bookId: targetBook[0]?.id
+                    bookId: bookId
                 })
             });
 
@@ -128,13 +129,13 @@ export default function Review({ bookDetails }) {
             else {
                 const errorData = await response.json();
                 //console.error('Error:', errorData);
-                setMessage("Failed to add review.");
+                setErrors("Failed to add review.");
                 return errorData;
             }
         } catch (error) {
             //console.error('Error:', error);
-            setMessage("An error occurred.");
-            return error;
+            setErrors(error);
+            
         }
 
   }
@@ -142,9 +143,9 @@ export default function Review({ bookDetails }) {
     return (
         <div className="review">
           <div className="reviewItems">
-           <h3 className="review_title">Review for: <span className="review_text">{targetBook[0]?.volumeInfo.title}</span></h3>
-           <p className="review_title">Author: <span className="review_text">{targetBook[0]?.volumeInfo.authors?.join(', ')}</span></p>
-           <p className="review_title">Description: <span className="review_text">{targetBook[0]?.volumeInfo.description || "No description available."}</span></p>
+           <h3 className="review_title">Review for: <span className="review_text">{title}</span></h3>
+           <p className="review_title">Author: <span className="review_text">{author}</span></p>
+           <p className="review_title">Description: <span className="review_text">{description} ? : "No description available."</span></p>
            {
             
             
@@ -156,6 +157,7 @@ export default function Review({ bookDetails }) {
                               {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
+                                <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />
                               <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />
                             </>
                      ) : (
@@ -168,6 +170,7 @@ export default function Review({ bookDetails }) {
                              <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange} isEditing={isEditing}/>
                              <span><Custombutton buttonname="Edit" customStyle={{margin:'auto'}} onClick={handleEditClick} />
                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span>
+                            
                              {message && <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />}
                           </>
                         ) : (

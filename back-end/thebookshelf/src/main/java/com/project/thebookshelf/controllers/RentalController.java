@@ -65,7 +65,7 @@ public class RentalController {
                     .status(HttpStatus.CONFLICT)
                     .body("You have already rented this book.");
         }
-        Rental newRental = new Rental(rentalData.getBookName(),rentalData.getBookId(),rentalData.getUser());
+        Rental newRental = new Rental(rentalData.getBookName(),rentalData.getBookId(),rentalData.getUser(), rentalData.getAuthor(),rentalData.getDescription());
         rentalRepository.save(newRental);
         return  ResponseEntity.ok(Collections.singletonMap("response", "Rental added successfully"));
     }

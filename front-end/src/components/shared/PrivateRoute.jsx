@@ -17,6 +17,7 @@ export default function PrivateRoute({ children }) {
       }
       try {
        // console.log("Validating token:", token);
+       //LOCAL URL ->   http://localhost:8080/user/validate
         const res = await fetch('https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/user/validate', {
           headers: {
             Authorization: `Bearer ${token}`,

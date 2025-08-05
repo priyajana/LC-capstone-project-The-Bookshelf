@@ -27,7 +27,7 @@ export default function BookCard({bookDetails}){
     
         const bookTitle = targetBook[0].volumeInfo.title;
         //console.log("Book title to be rented is--->",bookTitle);
-       
+      // console.log(targetBook[0].volumeInfo.description)
         const userId = localStorage.getItem('userId');
         if (!userId) {
             setMessage("Please log in to rent a book.");
@@ -37,9 +37,11 @@ export default function BookCard({bookDetails}){
             bookName: bookTitle,
             user: {"id": parseInt(userId)},
             bookId: targetBook[0].id,
+            author:targetBook[0].volumeInfo.authors[0],
+            description:targetBook[0].volumeInfo.description,
         };
         try {
-            //LOCAL URL ->http://localhost:8080/rentals/add
+            //LOCAL URL ->  http://localhost:8080/rentals/add
             
             const response = await fetch('https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/rentals/add', {
                 method: 'POST',

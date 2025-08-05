@@ -23,16 +23,23 @@ public class Rental {
     @JsonBackReference
     private User user;
 
+    @Column(name = "author")
+    private String author;
 
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     public Rental() {
         // Default constructor
     }
 
-    public Rental(String bookName, String bookId,User user) {
+    public Rental(String bookName, String bookId,User user,String author,String description) {
         this.bookName = bookName;
         this.bookId = bookId;
         this.user = user;
+        this.author = author;
+        this.description = description;
     }
     // Getters and setters
 
@@ -66,5 +73,20 @@ public class Rental {
 
     public void setBookId(String bookId) {
         this.bookId = bookId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

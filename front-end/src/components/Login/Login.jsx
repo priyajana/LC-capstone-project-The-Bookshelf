@@ -54,7 +54,7 @@ export default function Login() {
         setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
         try {
-            // local url -> http://localhost:8080/user/login
+            // local url ->  http://localhost:8080/user/login
             
             const response = await fetch('https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/user/login', {
                 method: 'POST',
@@ -104,7 +104,7 @@ export default function Login() {
                         )}
             
             <label ><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password"   onChange={handleChange} required/>
+            <input type="password" placeholder="Enter Password" name="password"  onChange={handleChange} required/>
              {errors.password && (
                         <CustomMsg className="error-message" message={errors.password} customStyle={{ color: 'red' }} />
                         )}

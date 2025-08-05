@@ -13,6 +13,7 @@ export default function Rentals() {
   {
                 
           try {
+            //LOCAL URL ->   http://localhost:8080/rentals/${userId}
             const response = await fetch(`https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/rentals/${userId}`, {
                 method: 'GET',
                 headers: {
@@ -26,7 +27,13 @@ export default function Rentals() {
                 const data = await response.json();
                 //console.log("Fetched rentals:", data);
 
-                return data.map(item => ({ id: item.id, bookName: item.bookName,bookId: item.bookId }));
+                return data.map(item => ({ 
+                    id: item.id, 
+                    bookName: item.bookName,
+                    bookId: item.bookId ,
+                    author:item.author,
+                    description:item.description
+                }));
 
 
             } else {
@@ -103,7 +110,7 @@ const deleteRental = async (e) => {
                                     <tr key={item.id}>
                                         <td>{index+1}.&nbsp;{item.bookName}</td>
                                         
-                                        <td style={{textAlign: 'center'}}><Link style={{color:'rgb(88, 17, 17)'}} to={`/review/${item.bookId}`}> Review</Link></td>
+                                        <td style={{textAlign: 'center'}}><Link style={{color:'rgb(88, 17, 17)'}} to={`/review/${item.bookId}`} state={{title:item.bookName,author:item.author,description:item.description}} > Review</Link></td>
                                         <td style={{textAlign: 'center'}}><Custombutton type="button" customStyle={{margin:'10px'}} buttonname="delete" value = {item.id} onClick={deleteRental}/></td>
                                     </tr>
                                 ))
