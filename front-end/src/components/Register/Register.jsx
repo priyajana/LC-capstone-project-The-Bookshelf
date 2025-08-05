@@ -90,17 +90,9 @@ export default function Register(){
           navigate('/login');   // Redirect to login page
         }, 2000);  // 2-second delay to show message
       }  else {
-        // SAFELY parse error JSON
-        let errorData = {};
-        try {
-          errorData = await response.json();
-        } catch (error) {
+        
           const text = await response.text();
-          errorData.message = text;
-          return error;
-        }
-
-        setErrors({ server: errorData.message || 'Registration failed.' });
+          setErrors({ server: text || 'Registration failed.' });
       }
     } catch (error) {
       //console.error('Error:', error);
