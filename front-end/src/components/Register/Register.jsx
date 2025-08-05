@@ -92,7 +92,7 @@ export default function Register(){
       } 
       else if (response.status === 400) {
             const errorData = await response.text();
-            // Handle unauthorized access
+            console.log("Bad request-->",response)
             setErrors({server: errorData.message || 'Email is already registered!' });
         }
       else {
