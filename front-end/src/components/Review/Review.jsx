@@ -153,7 +153,7 @@ export default function Review({ bookDetails }) {
                             <>
                               <textarea
                                 placeholder="Write your review here..." rows="5" cols="50" value={content} onChange={(e) => setContent(e.target.value)}></textarea><br />
-                                <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange}/>
+                                <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange} isEditing={isEditing}/>
                               {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
@@ -166,7 +166,7 @@ export default function Review({ bookDetails }) {
                           <>
                           <p className="review_title">My review:</p>
                             <span className="review_text">{content}</span>
-                             <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange}/>
+                             <p className="review_title">My Rating: </p><Ratings rating = {rating} onRatingChange={handleRatingChange} isEditing={isEditing}/>
                              <span><Custombutton buttonname="Edit" customStyle={{margin:'auto'}} onClick={handleEditClick} />
                             <Link className="link-wrapper" key="back" to={`/rentals`}><Custombutton buttonname="Back" customStyle={{margin:'20px'}}/></Link></span>
                              {message && <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />}
