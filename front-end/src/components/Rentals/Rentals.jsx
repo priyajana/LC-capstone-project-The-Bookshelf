@@ -13,7 +13,7 @@ export default function Rentals() {
   {
                 
           try {
-            const response = await fetch(`http://localhost:8080/rentals/${userId}`, {
+            const response = await fetch(`https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/rentals/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,9 @@ const deleteRental = async (e) => {
     let rentalId = parseInt(e.target.value);
     //console.log("Deleting rental:", rentalId);
     try {
-        const response = await fetch(`http://localhost:8080/rentals/delete/${rentalId}`, {
+        //LOCAL URL -> http://localhost:8080/rentals/delete/${rentalId}
+        
+        const response = await fetch(`https://ms87t1jqbe.execute-api.us-east-2.amazonaws.com/rentals/delete/${rentalId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
