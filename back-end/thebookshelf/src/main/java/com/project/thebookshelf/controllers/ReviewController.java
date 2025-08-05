@@ -39,7 +39,7 @@ public class ReviewController {
             return new ResponseEntity<>(userReview, HttpStatus.OK); // 200
         } else {
             String response = "There are no reviews for user with ID of " + userId + ".";
-            return new ResponseEntity<>(Collections.singletonMap("response", response), HttpStatus.NOT_FOUND); // 404
+            return new ResponseEntity<>(Collections.singletonMap("response", response), HttpStatus.OK);
         }
     }
 

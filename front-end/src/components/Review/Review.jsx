@@ -11,6 +11,7 @@ export default function Review({ bookDetails }) {
     const [message, setMessage] = useState("");
 
     const targetBook = bookDetails.items.filter((book) => book.id === bookId);
+    console.log("Review for->",targetBook)
     const [reviewId, setReviewId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const[initialContent, setInitialContent] = useState("");
@@ -52,9 +53,7 @@ export default function Review({ bookDetails }) {
         const data = await response.json();
         return data;
       } 
-       else if (response.status === 404) {
-                return ;
-            }
+      
       else {
         const errorData = await response.json();
         return errorData;
