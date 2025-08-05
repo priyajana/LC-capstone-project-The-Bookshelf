@@ -134,7 +134,7 @@ export default function Review() {
             }
         } catch (error) {
             //console.error('Error:', error);
-            return error;
+           setErrors(error.message || "An error occurred while fetching the review.");
             
         }
 
@@ -157,7 +157,7 @@ export default function Review() {
                               {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
-                                {errors&& <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />}
+                                {errors && <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />}
                               <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />
                             </>
                      ) : (
