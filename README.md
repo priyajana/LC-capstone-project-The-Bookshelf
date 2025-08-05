@@ -104,3 +104,6 @@ Whether you're an avid reader or just looking for your next great read, Bookshel
     - The backend will run on `http://localhost:8080` by default.
     - Ensure that the PostgreSQL database is running and configured correctly in the `application.properties` file.
    
+7. **Future features**:
+   - Planning to implement the option to request for new books functionality.
+   - Include a subscription fee based on membership selected.
