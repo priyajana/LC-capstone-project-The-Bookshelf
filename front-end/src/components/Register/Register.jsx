@@ -129,7 +129,7 @@ export default function Register(){
 
                     <button type="submit" className="registerbtn">Register</button>
                     {errors.server && <CustomMsg message={errors.server} customStyle={{ color: 'red' }} />}
-                    <CustomMsg message={message} customStyle={{ color: 'green' }} />
+                    {message && <CustomMsg message={message} customStyle={{ color: 'green' }} />}
 
                 <div className="container signin">
                     <p>Already have an account? <Link to="/login">Login</Link></p>
