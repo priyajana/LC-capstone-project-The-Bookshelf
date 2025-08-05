@@ -127,6 +127,7 @@ export default function Register(){
                     {errors.repeat_password && <CustomMsg message={errors.repeat_password} customStyle={{ color: 'red' }} />}
 
                     <button type="submit" className="registerbtn">Register</button>
+                    {errors.server && <CustomMsg message={errors.server} customStyle={{ color: 'red' }} />}
                     <CustomMsg message={message} customStyle={{ color: 'green' }} />
 
                 <div className="container signin">
