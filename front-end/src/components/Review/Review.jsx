@@ -81,7 +81,7 @@ export default function Review() {
   {
         const userId = localStorage.getItem('userId');
         const reviewText = content.trim();
-
+        setErrors("");
         if (!reviewText) {
           setErrors("Review content cannot be empty.");
           return;
@@ -129,12 +129,12 @@ export default function Review() {
             else {
                 const errorData = await response.json();
                 //console.error('Error:', errorData);
-                setErrors("Failed to add review.");
-                return errorData;
+                setErrors(errorData.message || "Failed to add review.");
+                
             }
         } catch (error) {
             //console.error('Error:', error);
-            setErrors(error);
+            return error;
             
         }
 
@@ -157,7 +157,7 @@ export default function Review() {
                               {/* <p>You selected: {rating} star{rating !== 1 ? 's' : ''}</p> */}
                                <span><Custombutton id="reviewBtn"  type="submit"  buttonname="Submit Review" customStyle={{margin:'20px', width: '120px' }} onClick={submitReview} />    
                                 <Custombutton buttonname="Cancel" onClick={handleCancelClick} /></span>
-                                <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />
+                                {errors&& <CustomMsg message={errors} customStyle={{ color: 'red', padding: '10px' }} />}
                               <CustomMsg message={message} customStyle={{ color: 'green', padding: '10px' }} />
                             </>
                      ) : (
