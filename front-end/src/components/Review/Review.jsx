@@ -145,7 +145,7 @@ export default function Review() {
           <div className="reviewItems">
            <h3 className="review_title">Review for: <span className="review_text">{title}</span></h3>
            <p className="review_title">Author: <span className="review_text">{author}</span></p>
-           <p className="review_title">Description: <span className="review_text">{description} ? : "No description available."</span></p>
+           <p className="review_title">Description: <span className="review_text">{description ? description : "No description available."}</span></p>
            {
             
             
