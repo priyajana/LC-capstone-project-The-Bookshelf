@@ -91,8 +91,8 @@ export default function Register(){
         }, 2000);  // 2-second delay to show message
       }  else {
         
-          const text = await response.text();
-          setErrors({ server: text || 'Registration failed.' });
+          const data = await response.json();
+          setErrors({ server: data.message || 'Registration failed.' });
       }
     } catch (error) {
       //console.error('Error:', error);
