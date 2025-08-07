@@ -88,7 +88,7 @@ export default function BookCard({bookDetails}){
 
                 <h4>Year Published: {targetBook? targetBook[0].volumeInfo.publishedDate:''}</h4>
 
-                <h4>Genre: {targetBook? targetBook[0].volumeInfo.categories[0]&& targetBook[0].volumeInfo.categories[0]:''} </h4>
+                <h4>Genre: {targetBook?.[0]?.volumeInfo?.categories?.[0] || ''}</h4>
 
                 <div className="rentorback">
                     <Custombutton onClick={rentBook} type="button" buttonname="Rent"/>
